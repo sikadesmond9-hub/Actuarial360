@@ -1,14 +1,1 @@
-[
-  { "id": 1, "name": "Desmond Sika", "level": 400, "role": "President", "email": "desmond@ucc.edu.gh", "phone": "+233 24 000 0001", "interests": "Life Contingencies, Risk Theory" },
-  { "id": 2, "name": "Akosua Mensah", "level": 400, "role": "Vice President", "email": "akosua@ucc.edu.gh", "phone": "+233 24 000 0002", "interests": "Financial Mathematics, Pensions" },
-  { "id": 3, "name": "Kwame Boateng", "level": 400, "role": "Secretary", "email": "kwame@ucc.edu.gh", "phone": "+233 24 000 0003", "interests": "Actuarial Modelling" },
-  { "id": 4, "name": "Ama Owusu", "level": 300, "role": "Organiser", "email": "ama@ucc.edu.gh", "phone": "+233 24 000 0004", "interests": "Risk Theory, Data Analytics" },
-  { "id": 5, "name": "Yaw Darko", "level": 300, "role": "Student", "email": "yaw@ucc.edu.gh", "phone": "+233 24 000 0005", "interests": "Regression & Time Series" },
-  { "id": 6, "name": "Efua Asante", "level": 300, "role": "Student", "email": "efua@ucc.edu.gh", "phone": "+233 24 000 0006", "interests": "Financial Economics" },
-  { "id": 7, "name": "Kojo Appiah", "level": 200, "role": "Student", "email": "kojo@ucc.edu.gh", "phone": "+233 24 000 0007", "interests": "Probability Theory" },
-  { "id": 8, "name": "Abena Osei", "level": 200, "role": "Student", "email": "abena@ucc.edu.gh", "phone": "+233 24 000 0008", "interests": "Statistical Computing" },
-  { "id": 9, "name": "Nana Ama Frimpong", "level": 200, "role": "Student", "email": "nanaama@ucc.edu.gh", "phone": "+233 24 000 0009", "interests": "Linear Algebra" },
-  { "id": 10, "name": "Kofi Ansah", "level": 100, "role": "Student", "email": "kofi@ucc.edu.gh", "phone": "+233 24 000 0010", "interests": "Calculus, Probability" },
-  { "id": 11, "name": "Adwoa Baah", "level": 100, "role": "Student", "email": "adwoa@ucc.edu.gh", "phone": "+233 24 000 0011", "interests": "Statistics, Economics" },
-  { "id": 12, "name": "Kwesi Danso", "level": 100, "role": "Student", "email": "kwesi@ucc.edu.gh", "phone": "+233 24 000 0012", "interests": "Calculus, Programming" }
-]
+[]
