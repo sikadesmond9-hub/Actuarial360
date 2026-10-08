@@ -1,7 +1,7 @@
 // ===== CURRICULUM LEVEL TABS =====
 document.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('.level-tab');
-  const panels = document.querySelectorAll('.level-panel');
+  const panels = document.querySelectorAll('.level-panel active');
 
   if (!tabs.length || !panels.length) return;
 
