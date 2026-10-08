@@ -800,3 +800,154 @@ h1, h2, h3, h4 {
 @media (max-width: 520px) {
   .course-card { padding: 20px 18px; }
 }
+/* =========================================================
+   STUDENT DIRECTORY
+   ========================================================= */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+  justify-content: center;
+}
+
+.filter-btn {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--primary), var(--accent-warm));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.28);
+}
+
+.result-count {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 26px;
+}
+
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.student-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 22px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.student-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent-warm));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.student-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+.student-card:hover::before { opacity: 1; }
+
+.student-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent-warm));
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 14px;
+  box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3);
+}
+
+.student-body h3 {
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.student-role {
+  font-size: 0.82rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.student-interest {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 14px;
+  min-height: 40px;
+}
+
+.level-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+.level-100 { background: #dbeafe; color: #1e40af; }
+.level-200 { background: #fef3c7; color: #92400e; }
+.level-300 { background: #ede9fe; color: #5b21b6; }
+.level-400 { background: #d1fae5; color: #065f46; }
+
+.student-contact {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.student-contact a {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary);
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.student-contact a:hover {
+  background: var(--primary-light);
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--muted);
+  padding: 40px 20px;
+  font-size: 0.95rem;
+}
