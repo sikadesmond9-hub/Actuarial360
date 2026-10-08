@@ -230,13 +230,14 @@ h1, h2, h3, h4 {
   margin-bottom: 18px;
   font-weight: 800;
   letter-spacing: -0.02em;
-}
-.hero h1 .accent {
-  background: linear-gradient(135deg, #34d399, #2dd4bf);
+}.hero h1 .accent {
+  background: linear-gradient(135deg, #6ee7b7 0%, #34d399 50%, #5eead4 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
+  filter: drop-shadow(0 2px 12px rgba(52, 211, 153, 0.35));
+};
+
 
 .hero-sub {
   font-size: 1.08rem;
