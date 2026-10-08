@@ -164,15 +164,7 @@ h1, h2, h3, h4 {
   color: #fff !important;
 }
 
-.btn-ghost {
-  border: 1.5px solid rgba(255,255,255,0.35);
-  color: #fff !important;
-  padding: 13px 24px;
-  border-radius: var(--radius-sm);
-  font-weight: 600;
-  display: inline-block;
-  font-size: 0.95rem;
-  transition: background 0.2s, border-color 0.2s;
+
 }
 .btn-ghost:hover {
   background: rgba(255,255,255,0.1);
@@ -180,7 +172,23 @@ h1, h2, h3, h4 {
 }
 
 /* =========================================================
-   HERO
+   HERO.btn-ghost {
+  border: 1.5px solid rgba(110, 231, 183, 0.6);
+  color: #ffffff !important;
+  padding: 13px 24px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  display: inline-block;
+  font-size: 0.95rem;
+  background: rgba(16, 185, 129, 0.08);
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.btn-ghost:hover {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: #6ee7b7;
+  transform: translateY(-2px);
+}
    ========================================================= */
 .hero {
   position: relative;
