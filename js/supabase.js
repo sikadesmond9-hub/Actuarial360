@@ -1,7 +1,7 @@
 // =============================================================
 // SUPABASE CLIENT — ActuarialUCC
 // =============================================================
-const SUPABASE_URL = "https://zrrvehekvkwqxepayozs.supabase.co";
+const SUPABASE_URL = "https://zrrvehekvkwqxepayoza.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_nEQ5c5wlvhJ7308Ajkq244w_moInZa8c";
 
 // Create the client
