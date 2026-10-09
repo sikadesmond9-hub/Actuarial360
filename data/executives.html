@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Executives — ActuarialUCC</title>
+  <meta name="description" content="Meet the current executives of the Actuarial Science student body at the University of Cape Coast." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">AΣ</span>
+        <span class="logo-text">Actuarial<span class="accent">UCC</span></span>
+      </a>
+      <button class="menu-toggle" aria-label="Open menu">☰</button>
+      <nav class="nav">
+        <ul>
+          <li><a href="about.html">The Program</a></li>
+          <li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="executives.html">Executives</a></li>
+          <li><a href="learning.html">Learning Hub</a></li>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="login.html" class="btn-outline">Login</a></li>
+          <li><a href="register.html" class="btn-primary small">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-breadcrumb"><a href="index.html">Home</a> / Executives</p>
+      <h1>Meet the Executives</h1>
+      <p class="page-sub">
+        The students leading the Actuarial Science community at UCC — their roles, vision and contact.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <div class="dir-controls">
+        <div class="level-tabs" id="roleTabs">
+          <button class="level-tab active" data-role="all">All Roles</button>
+          <button class="level-tab" data-role="President">President</button>
+          <button class="level-tab" data-role="Vice President">Vice President</button>
+          <button class="level-tab" data-role="Secretary">Secretary</button>
+          <button class="level-tab" data-role="Organizer">Organizer</button>
+          <button class="level-tab" data-role="Treasurer">Treasurer</button>
+        </div>
+
+        <div class="dir-search">
+          <input type="text" id="execSearch" placeholder="Search by name or role…" />
+        </div>
+      </div>
+
+      <p class="dir-count" id="execCount"></p>
+
+      <div class="exec-grid" id="execGrid"></div>
+
+      <div class="empty-state" id="execEmpty">
+        <span class="empty-icon">👥</span>
+        <h3>No executives listed yet</h3>
+        <p>Executive profiles will appear here once data is added.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><h4>ActuarialUCC</h4><p class="muted">A student-run hub for the Actuarial Science community at the University of Cape Coast.</p></div>
+      <div><h4>Program</h4><ul><li><a href="about.html">About</a></li><li><a href="curriculum.html">Curriculum</a></li><li><a href="executives.html">Executives</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
+      <div><h4>Account</h4><ul><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/executives.js"></script>
+</body>
+</html>
