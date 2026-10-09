@@ -1174,3 +1174,139 @@ h1, h2, h3, h4 {
 @media (max-width: 520px) {
   .exec-grid { grid-template-columns: 1fr; }
 }
+/* =========================================================
+   LEARNING HUB
+   ========================================================= */
+.notice-banner {
+  margin-top: 40px;
+  padding: 16px 22px;
+  background: var(--primary-light);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  color: var(--primary-dark);
+  text-align: center;
+}
+
+.mentor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+.mentor-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 24px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.mentor-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent-warm));
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.mentor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+.mentor-card:hover::before { opacity: 1; }
+
+.mentor-avatar {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--primary), var(--accent-warm));
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.15rem;
+  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.28);
+}
+
+.mentor-body { flex: 1; min-width: 0; }
+.mentor-body h3 { font-size: 1.05rem; margin-bottom: 4px; color: var(--dark); }
+.mentor-role {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+.mentor-bio {
+  font-size: 0.88rem;
+  color: #4b5563;
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+.mentor-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.mentor-tags span {
+  font-size: 0.72rem;
+  background: var(--bg-alt);
+  color: var(--muted);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+.mentor-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* FAQ */
+.faq-list { max-width: 780px; margin: 0 auto; }
+.faq {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.faq:hover { border-color: var(--primary); }
+.faq[open] { box-shadow: var(--shadow); border-color: var(--primary); }
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--dark);
+  list-style: none;
+  position: relative;
+  padding-right: 28px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+";
+  position: absolute;
+  right: 0; top: 0;
+  color: var(--primary);
+  font-size: 1.3rem;
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+.faq[open] summary::after { transform: rotate(45deg); }
+.faq p { margin-top: 10px; color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+
+@media (max-width: 520px) {
+  .mentor-card { flex-direction: column; }
+  .mentor-actions { width: 100%; }
+  .mentor-actions a { flex: 1; text-align: center; }
+}
