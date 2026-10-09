@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Hub — ActuarialUCC</title>
+  <meta name="description" content="Connect with mentors and lecturers in the Actuarial Science program at the University of Cape Coast." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">AΣ</span>
+        <span class="logo-text">Actuarial<span class="accent">UCC</span></span>
+      </a>
+      <button class="menu-toggle" aria-label="Open menu">☰</button>
+      <nav class="nav">
+        <ul>
+          <li><a href="about.html">The Program</a></li>
+          <li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="executives.html">Executives</a></li>
+          <li><a href="learning.html">Learning Hub</a></li>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="login.html" class="btn-outline">Login</a></li>
+          <li><a href="register.html" class="btn-primary small">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-breadcrumb"><a href="index.html">Home</a> / Learning Hub</p>
+      <h1>Learning Hub</h1>
+      <p class="page-sub">
+        Connect with mentors and lecturers. Ask questions, request guidance, and grow in the program.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head center">
+        <h2>How the Learning Hub Works</h2>
+        <p class="section-sub">Three simple steps to get help.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Find a Mentor</h3>
+          <p>Browse by role, level or subject expertise.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Send a Message</h3>
+          <p>Reach out with your question or request.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Get Guidance</h3>
+          <p>Receive a reply and schedule a session if needed.</p>
+        </div>
+      </div>
+
+      <div class="notice-banner">
+        💬 <strong>In-platform messaging is coming soon.</strong>
+        For now, use the contact button on each profile to email or call directly.
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Mentors &amp; Lecturers</h2>
+        <p class="section-sub">Filter by role or search by name and subject.</p>
+      </div>
+
+      <div class="dir-controls">
+        <div class="level-tabs" id="roleTabs">
+          <button class="level-tab active" data-role="all">All</button>
+          <button class="level-tab" data-role="Lecturer">Lecturers</button>
+          <button class="level-tab" data-role="Mentor">Mentors</button>
+          <button class="level-tab" data-role="Tutor">Tutors</button>
+          <button class="level-tab" data-role="Alumni">Alumni</button>
+        </div>
+
+        <div class="dir-search">
+          <input type="text" id="mentorSearch" placeholder="Search by name or subject…" />
+        </div>
+      </div>
+
+      <p class="dir-count" id="mentorCount"></p>
+
+      <div class="mentor-grid" id="mentorGrid"></div>
+
+      <div class="empty-state" id="mentorEmpty">
+        <span class="empty-icon">💡</span>
+        <h3>No mentors listed yet</h3>
+        <p>Mentors and lecturers will appear here once data is added.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Common Questions</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq">
+          <summary>How do I contact a lecturer?</summary>
+          <p>Open their profile and use the email or phone button. In-platform messaging is being built for Stage 2.</p>
+        </details>
+        <details class="faq">
+          <summary>Can I request a study session with a mentor?</summary>
+          <p>Yes. Send a message describing what you need — many mentors offer one-on-one sessions.</p>
+        </details>
+        <details class="faq">
+          <summary>Who can become a mentor?</summary>
+          <p>Senior students, alumni, and lecturers. Executives will reach out when nominations open.</p>
+        </details>
+        <details class="faq">
+          <summary>Is there a cost to use the Learning Hub?</summary>
+          <p>No. The Learning Hub is free for all registered Actuarial Science students at UCC.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><h4>ActuarialUCC</h4><p class="muted">A student-run hub for the Actuarial Science community at the University of Cape Coast.</p></div>
+      <div><h4>Program</h4><ul><li><a href="about.html">About</a></li><li><a href="curriculum.html">Curriculum</a></li><li><a href="executives.html">Executives</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
+      <div><h4>Account</h4><ul><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/learning.js"></script>
+</body>
+</html>
