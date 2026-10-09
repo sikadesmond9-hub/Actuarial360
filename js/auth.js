@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (loginLink) {
       loginLink.textContent = '👤 ' + firstName;
-      loginLink.href = 'students.html';
+    loginLink.href = 'profile.html';
       loginLink.classList.remove('btn-outline');
     }
 
