@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Student Directory — ActuarialUCC</title>
-  <meta name="description" content="The Actuarial Science student directory at the University of Cape Coast — Level 100 through Level 400." />
+  <meta name="description" content="The Actuarial Science student directory at the University of Cape Coast." />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -63,10 +63,15 @@
 
       <div class="student-grid" id="studentGrid"></div>
 
-      <div class="empty-state" id="emptyState">
+      <div class="empty-state" id="emptyState" style="display:none;">
         <span class="empty-icon">🎓</span>
-        <h3>No students listed yet</h3>
-        <p>The student directory will appear here once data is added.</p>
+        <h3>No students found</h3>
+        <p>Try a different level or search term.</p>
+      </div>
+
+      <div class="empty-state" id="loadingState">
+        <span class="empty-icon">⏳</span>
+        <h3>Loading students…</h3>
       </div>
 
     </div>
@@ -82,7 +87,9 @@
     <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/main.js"></script>
+  <script src="js/supabase.js"></script>
   <script src="js/students.js"></script>
 </body>
 </html>
