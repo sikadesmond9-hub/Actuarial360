@@ -7,11 +7,11 @@
 // =============================================================
 
 // ⚠️ REPLACE THESE TWO VALUES WITH YOUR OWN FROM SUPABASE
-const SUPABASE_URL = "PASTE_YOUR_SUPABASE_URL_HERE";
-const SUPABASE_ANON_KEY = "PASTE_YOUR_ANON_KEY_HERE";
+const SUPABASE_URL = "zrrvehekvkwqxepayoza";
+const SUPABASE_ = "sb_publishable_nE5Qcz5wvihJ730AjqZ44w_mo1nZa0c";
 
 // Create the client (exposed globally as window.sb)
-window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+window.sb = window.supabase.createClient(zrrvehekvkwqxepayoza,sb_publishable_nE5Qcz5wvihJ730AjqZ44w_mo1nZa0c );
 
 // Quick console message so you know it loaded
-console.log("✅ Supabase client initialised for", SUPABASE_URL);
+console.log("✅ Supabase client initialised for",zrrvehekvkwqxepayoza );
