@@ -36,20 +36,16 @@
       <h1>Create your account</h1>
       <p class="auth-sub">Join the Actuarial Science community at UCC.</p>
 
-      <div class="notice-banner small">
-        🔒 <strong>Demo mode.</strong> Real accounts arrive in Stage 2. Fill this form to see the design.
-      </div>
-
-      <form class="auth-form" onsubmit="event.preventDefault(); alert('Registration is not yet active — coming in Stage 2 with real accounts.');">
+      <form class="auth-form" id="registerForm">
         <div class="form-grid">
           <label>
             Full name
-            <input type="text" name="fullname" placeholder="e.g. Kofi Mensah" required />
+            <input type="text" name="full_name" placeholder="e.g. Kofi Mensah" required />
           </label>
 
           <label>
             Student ID
-            <input type="text" name="studentId" placeholder="e.g. AS/100/2024/001" required />
+            <input type="text" name="student_id" placeholder="e.g. AS/100/2024/001" required />
           </label>
 
           <label>
@@ -70,18 +66,17 @@
               <option value="200">Level 200</option>
               <option value="300">Level 300</option>
               <option value="400">Level 400</option>
-              <option value="Alumni">Alumni</option>
             </select>
           </label>
 
           <label>
             Role
             <select name="role" required>
-              <option value="">Select your role</option>
               <option value="Student">Student</option>
               <option value="Executive">Executive</option>
               <option value="Mentor">Mentor</option>
               <option value="Lecturer">Lecturer</option>
+              <option value="Alumni">Alumni</option>
             </select>
           </label>
 
@@ -101,7 +96,9 @@
           I agree to the <a href="#" class="link-more">Terms</a> and <a href="#" class="link-more">Privacy Policy</a>
         </label>
 
-        <button type="submit" class="btn-primary full">Create Account</button>
+        <button type="submit" class="btn-primary full" id="submitBtn">Create Account</button>
+
+        <p id="formMessage" style="margin-top:14px; text-align:center; font-size:0.9rem; font-weight:600;"></p>
       </form>
 
       <p class="auth-foot">
@@ -120,50 +117,69 @@
     <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
   </footer>
 
-   <!-- Supabase Library (CDN) -->
+  <!-- Supabase library (must load before our scripts) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- Our main scripts -->
   <script src="js/main.js"></script>
   <script src="js/supabase.js"></script>
   <script>
-    // Test connection to Supabase
-    window.addEventListener('load', () => {
-      if (window.sb) {
-        // Try a simple query
-        window.sb.from('profiles').select('id', { count: 'exact', head: true })
-          .then(({ error }) => {
-            if (error) {
-              showStatus("❌ Supabase error: " + error.message, "error");
-            } else {
-              showStatus("✅ Connected to Supabase successfully!", "success");
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('registerForm');
+      const msg = document.getElementById('formMessage');
+      const btn = document.getElementById('submitBtn');
+
+      function showMessage(text, type) {
+        msg.textContent = text;
+        msg.style.color = type === 'success' ? '#059669' : '#dc2626';
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        showMessage('', '');
+        btn.disabled = true;
+        btn.textContent = 'Creating account…';
+
+        const data = new FormData(form);
+        const password = data.get('password');
+        const confirm = data.get('confirm');
+
+        if (password !== confirm) {
+          showMessage('Passwords do not match.', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Create Account';
+          return;
+        }
+
+        try {
+          const { data: result, error } = await window.sb.auth.signUp({
+            email: data.get('email'),
+            password: password,
+            options: {
+              data: {
+                full_name: data.get('full_name'),
+                student_id: data.get('student_id'),
+                phone: data.get('phone'),
+                level: data.get('level'),
+                role: data.get('role')
+              }
             }
           });
-      } else {
-        showStatus("❌ Supabase client failed to load", "error");
-      }
-    });
 
-    function showStatus(text, type) {
-      const el = document.createElement('div');
-      el.textContent = text;
-      el.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 14px 24px;
-        border-radius: 12px;
-        font-family: Poppins, sans-serif;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: white;
-        background: ${type === 'success' ? '#059669' : '#dc2626'};
-        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-        z-index: 9999;
-        max-width: 90%;
-      `;
-      document.body.appendChild(el);
-    }
+          if (error) throw error;
+
+          showMessage('✅ Account created! Redirecting to the student directory…', 'success');
+
+          setTimeout(() => {
+            window.location.href = 'students.html';
+          }, 2000);
+
+        } catch (err) {
+          console.error(err);
+          showMessage('❌ ' + (err.message || 'Something went wrong. Please try again.'), 'error');
+          btn.disabled = false;
+          btn.textContent = 'Create Account';
+        }
+      });
+    });
   </script>
 </body>
 </html>
