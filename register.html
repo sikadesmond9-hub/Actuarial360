@@ -120,6 +120,50 @@
     <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
   </footer>
 
+   <!-- Supabase Library (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Our main scripts -->
   <script src="js/main.js"></script>
+  <script src="js/supabase.js"></script>
+  <script>
+    // Test connection to Supabase
+    window.addEventListener('load', () => {
+      if (window.sb) {
+        // Try a simple query
+        window.sb.from('profiles').select('id', { count: 'exact', head: true })
+          .then(({ error }) => {
+            if (error) {
+              showStatus("❌ Supabase error: " + error.message, "error");
+            } else {
+              showStatus("✅ Connected to Supabase successfully!", "success");
+            }
+          });
+      } else {
+        showStatus("❌ Supabase client failed to load", "error");
+      }
+    });
+
+    function showStatus(text, type) {
+      const el = document.createElement('div');
+      el.textContent = text;
+      el.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 14px 24px;
+        border-radius: 12px;
+        font-family: Poppins, sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: white;
+        background: ${type === 'success' ? '#059669' : '#dc2626'};
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        z-index: 9999;
+        max-width: 90%;
+      `;
+      document.body.appendChild(el);
+    }
+  </script>
 </body>
 </html>
