@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketplace — ActuarialUCC</title>
+  <meta name="description" content="Buy and sell actuarial textbooks, calculators, past questions and study materials within the UCC Actuarial Science community." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">AΣ</span>
+        <span class="logo-text">Actuarial<span class="accent">UCC</span></span>
+      </a>
+      <button class="menu-toggle" aria-label="Open menu">☰</button>
+      <nav class="nav">
+        <ul>
+          <li><a href="about.html">The Program</a></li>
+          <li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="executives.html">Executives</a></li>
+          <li><a href="learning.html">Learning Hub</a></li>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="login.html" class="btn-outline">Login</a></li>
+          <li><a href="register.html" class="btn-primary small">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-breadcrumb"><a href="index.html">Home</a> / Marketplace</p>
+      <h1>Actuarial Marketplace</h1>
+      <p class="page-sub">
+        Buy and sell textbooks, calculators, past questions and study materials —
+        within the UCC Actuarial Science community.
+      </p>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center">
+        <h2>How the Marketplace Works</h2>
+        <p class="section-sub">Simple, community-first trading.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><h3>Browse</h3><p>Find textbooks, calculators and study materials.</p></div>
+        <div class="step"><div class="step-num">2</div><h3>Contact Seller</h3><p>Reach out via email or phone to agree a price.</p></div>
+        <div class="step"><div class="step-num">3</div><h3>Meet &amp; Swap</h3><p>Meet on campus and complete the exchange.</p></div>
+      </div>
+      <div class="notice-banner">
+        🛒 <strong>Online payments coming soon.</strong>
+        For now, contact sellers directly. All trades happen in person, on campus.
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Browse Items</h2>
+        <p class="section-sub">Filter by category or search by name.</p>
+      </div>
+
+      <div class="dir-controls">
+        <div class="level-tabs" id="catTabs">
+          <button class="level-tab active" data-cat="all">All</button>
+          <button class="level-tab" data-cat="Textbooks">Textbooks</button>
+          <button class="level-tab" data-cat="Calculators">Calculators</button>
+          <button class="level-tab" data-cat="Past Questions">Past Questions</button>
+          <button class="level-tab" data-cat="Stationery">Stationery</button>
+          <button class="level-tab" data-cat="Software">Software</button>
+          <button class="level-tab" data-cat="Other">Other</button>
+        </div>
+
+        <div class="dir-search">
+          <input type="text" id="productSearch" placeholder="Search by item name…" />
+        </div>
+      </div>
+
+      <p class="dir-count" id="productCount"></p>
+
+      <div class="product-grid" id="productGrid"></div>
+
+      <div class="empty-state" id="productEmpty">
+        <span class="empty-icon">🛒</span>
+        <h3>No items listed yet</h3>
+        <p>Marketplace items will appear here once products are added.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELL CTA -->
+  <section class="cta">
+    <div class="container cta-inner">
+      <h2>Have Something to Sell?</h2>
+      <p>Textbooks, calculators, past questions — list them here and reach fellow students.</p>
+      <a href="register.html" class="btn-primary">Create an Account</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><h4>ActuarialUCC</h4><p class="muted">A student-run hub for the Actuarial Science community at the University of Cape Coast.</p></div>
+      <div><h4>Program</h4><ul><li><a href="about.html">About</a></li><li><a href="curriculum.html">Curriculum</a></li><li><a href="executives.html">Executives</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
+      <div><h4>Account</h4><ul><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/marketplace.js"></script>
+</body>
+</html>
