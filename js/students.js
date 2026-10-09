@@ -1,77 +1,108 @@
-// ===== LOAD & FILTER STUDENT DIRECTORY =====
-(function () {
-  const grid = document.getElementById('student-grid');
-  const countEl = document.getElementById('student-count');
-  const filterBtns = document.querySelectorAll('.filter-btn');
+// =============================================================
+// STUDENTS.JS — ActuarialUCC
+// Pulls student list from Supabase profiles table
+// =============================================================
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const grid = document.getElementById('studentGrid');
+  const emptyState = document.getElementById('emptyState');
+  const loadingState = document.getElementById('loadingState');
+  const countEl = document.getElementById('studentCount');
+  const searchInput = document.getElementById('studentSearch');
+  const tabs = document.querySelectorAll('#levelTabs .level-tab');
+
   if (!grid) return;
 
   let allStudents = [];
-  let activeFilter = 'all';
+  let currentLevel = 'all';
+  let currentSearch = '';
 
-  function initials(name) {
-    return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+  // ---- Load profiles from Supabase ----
+  try {
+    const { data, error } = await window.sb
+      .from('profiles')
+      .select('full_name, student_id, level, role, bio, interests, photo_url, created_at')
+      .order('level', { ascending: true })
+      .order('full_name', { ascending: true });
+
+    if (error) throw error;
+    allStudents = data || [];
+  } catch (err) {
+    console.error('Supabase error:', err);
+    allStudents = [];
   }
 
+  loadingState.style.display = 'none';
+
+  // ---- Render ----
   function render() {
-    const list = activeFilter === 'all'
-      ? allStudents
-      : allStudents.filter(s => s.level === parseInt(activeFilter));
+    const filtered = allStudents.filter(s => {
+      const levelMatch = currentLevel === 'all' || String(s.level) === String(currentLevel);
+      const q = currentSearch.trim().toLowerCase();
+      const searchMatch = !q ||
+        (s.full_name && s.full_name.toLowerCase().includes(q)) ||
+        (s.student_id && String(s.student_id).toLowerCase().includes(q));
+      return levelMatch && searchMatch;
+    });
 
-    grid.innerHTML = '';
-
-    if (list.length === 0) {
-      grid.innerHTML = '<p class="empty-state">No students found for this level.</p>';
-      if (countEl) countEl.textContent = '0 students';
+    if (!filtered.length) {
+      grid.innerHTML = '';
+      emptyState.style.display = 'block';
+      countEl.textContent = '';
       return;
     }
 
-    list.forEach(s => {
-      const card = document.createElement('article');
-      card.className = 'student-card';
-      card.innerHTML = `
-        <div class="student-avatar">${initials(s.name)}</div>
-        <div class="student-body">
-          <span class="level-tag level-${s.level}">Level ${s.level}</span>
-          <h3>${s.name}</h3>
-          <p class="student-role">${s.role}</p>
-          <p class="student-interest">${s.interests}</p>
-          <div class="student-contact">
-            <a href="mailto:${s.email}">✉️ Email</a>
-            <a href="tel:${s.phone.replace(/\s/g, '')}">📞 Call</a>
-          </div>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
+    emptyState.style.display = 'none';
+    countEl.textContent = `${filtered.length} student${filtered.length !== 1 ? 's' : ''} found`;
 
-    if (countEl) {
-      countEl.textContent = list.length + (list.length === 1 ? ' student' : ' students');
-    }
+    grid.innerHTML = filtered.map(s => {
+      const initials = (s.full_name || '?')
+        .split(' ')
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(w => w[0].toUpperCase())
+        .join('');
+      const interests = Array.isArray(s.interests) ? s.interests : [];
+      const avatarInner = s.photo_url
+        ? `<img src="${s.photo_url}" alt="${s.full_name}" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />`
+        : initials;
+
+      return `
+        <article class="student-card">
+          <div class="student-avatar">${avatarInner}</div>
+          <div class="student-body">
+            <h3>${s.full_name || 'Unnamed Student'}</h3>
+            ${s.level ? `<p class="student-level">Level ${s.level}</p>` : ''}
+            ${s.role && s.role !== 'Student' ? `<p class="student-level" style="background:#dbeafe;color:#1e40af;">${s.role}</p>` : ''}
+            ${s.student_id ? `<p class="student-id">ID: ${s.student_id}</p>` : ''}
+            ${s.bio ? `<p class="student-bio">${s.bio}</p>` : ''}
+            ${interests.length ? `
+              <div class="student-tags">
+                ${interests.map(t => `<span>${t}</span>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+        </article>
+      `;
+    }).join('');
   }
 
-  // Fetch data
-  fetch('data/students.json')
-    .then(res => res.json())
-    .then(data => {
-      // Sort ordinally: Level 100 first, then 200, 300, 400; then by name
-      allStudents = data.sort((a, b) => {
-        if (a.level !== b.level) return a.level - b.level;
-        return a.name.localeCompare(b.name);
-      });
-      render();
-    })
-    .catch(err => {
-      grid.innerHTML = '<p class="empty-state">Could not load student data. Please try again later.</p>';
-      console.error(err);
-    });
-
-  // Filter buttons
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeFilter = btn.dataset.level;
+  // ---- Filters ----
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentLevel = tab.dataset.level;
       render();
     });
   });
-})();
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = e.target.value;
+      render();
+    });
+  }
+
+  render();
+});
