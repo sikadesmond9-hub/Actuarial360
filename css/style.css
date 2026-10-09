@@ -1062,3 +1062,115 @@ h1, h2, h3, h4 {
   .level-tab { padding: 9px 16px; font-size: 0.85rem; }
   .level-header h3 { font-size: 1.25rem; }
 }
+/* =========================================================
+   EXECUTIVE CARDS
+   ========================================================= */
+.exec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+.exec-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-align: center;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.exec-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--accent-warm));
+}
+
+.exec-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.exec-avatar {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent-warm));
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  margin: 0 auto 16px;
+  box-shadow: 0 8px 22px rgba(5, 150, 105, 0.28);
+}
+
+.exec-body h3 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  color: var(--dark);
+}
+
+.exec-role {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.exec-level {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.exec-bio {
+  font-size: 0.9rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.exec-socials {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.exec-socials a {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--bg-alt);
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.exec-socials a:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 520px) {
+  .exec-grid { grid-template-columns: 1fr; }
+}
