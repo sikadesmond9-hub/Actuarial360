@@ -1,18 +1,10 @@
 // =============================================================
 // SUPABASE CLIENT — ActuarialUCC
 // =============================================================
-// This file connects your website to your Supabase project.
-// The URL and anon key are SAFE to expose here — they're meant
-// to be public. Security is handled by RLS on the database.
-// =============================================================
-
-// ⚠️ REPLACE THESE TWO VALUES WITH YOUR OWN FROM SUPABASE
 const SUPABASE_URL = "https://zrrvehekvkwqxepayozs.supabase.co";
-const SUPABASE_ = "sb_publishable_nE5Qcz5wvihJ730AjqZ44w_mo1nZa0c";
+const SUPABASE_ANON_KEY = "sb_publishable_nEQ5c5wlvhJ7308Ajkq244w_moInZa8c";
 
-// Create the client (exposed globally as window.sb)
-window.sb = window.supabase.createClient(zrrvehekvkwqxepayoza,sb_publishable_nE5Qcz5wvihJ730AjqZ44w_mo1nZa0c );
+// Create the client
+window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Quick console message so you know it loaded
-console.log("✅ Supabase client initialised for","https://zrrvehekvkwqxepayozs.supabase.co";
- );
+console.log("✅ Supabase client initialised for", SUPABASE_URL);
