@@ -36,11 +36,7 @@
       <h1>Welcome back</h1>
       <p class="auth-sub">Log in to your ActuarialUCC account.</p>
 
-      <div class="notice-banner small">
-        🔒 <strong>Demo mode.</strong> Real accounts arrive in Stage 2.
-      </div>
-
-      <form class="auth-form" onsubmit="event.preventDefault(); alert('Login is not yet active — coming in Stage 2 with real accounts.');">
+      <form class="auth-form" id="loginForm">
         <label>
           Email
           <input type="email" name="email" placeholder="you@example.com" required />
@@ -53,12 +49,14 @@
 
         <div class="auth-row">
           <label class="checkbox">
-            <input type="checkbox" /> Remember me
+            <input type="checkbox" name="remember" /> Remember me
           </label>
           <a href="#" class="link-more small">Forgot password?</a>
         </div>
 
-        <button type="submit" class="btn-primary full">Log In</button>
+        <button type="submit" class="btn-primary full" id="loginBtn">Log In</button>
+
+        <p id="loginMessage" style="margin-top:14px; text-align:center; font-size:0.9rem; font-weight:600;"></p>
       </form>
 
       <p class="auth-foot">
@@ -77,6 +75,54 @@
     <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/main.js"></script>
+  <script src="js/supabase.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const form = document.getElementById('loginForm');
+      const msg = document.getElementById('loginMessage');
+      const btn = document.getElementById('loginBtn');
+
+      // If already logged in, redirect to students page
+      const { data: { session } } = await window.sb.auth.getSession();
+      if (session) {
+        window.location.href = 'students.html';
+        return;
+      }
+
+      function showMessage(text, type) {
+        msg.textContent = text;
+        msg.style.color = type === 'success' ? '#059669' : '#dc2626';
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        showMessage('', '');
+        btn.disabled = true;
+        btn.textContent = 'Logging in…';
+
+        const data = new FormData(form);
+
+        try {
+          const { error } = await window.sb.auth.signInWithPassword({
+            email: data.get('email'),
+            password: data.get('password')
+          });
+
+          if (error) throw error;
+
+          showMessage('✅ Logged in! Redirecting…', 'success');
+          setTimeout(() => window.location.href = 'students.html', 1200);
+
+        } catch (err) {
+          console.error(err);
+          showMessage('❌ ' + (err.message || 'Invalid email or password.'), 'error');
+          btn.disabled = false;
+          btn.textContent = 'Log In';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
