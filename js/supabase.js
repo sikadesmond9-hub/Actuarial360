@@ -7,7 +7,7 @@
 // =============================================================
 
 // ⚠️ REPLACE THESE TWO VALUES WITH YOUR OWN FROM SUPABASE
-const SUPABASE_URL = "zrrvehekvkwqxepayoza";
+const SUPABASE_URL = "https://zrrvehekvkwqxepayozs.supabase.co";
 const SUPABASE_ = "sb_publishable_nE5Qcz5wvihJ730AjqZ44w_mo1nZa0c";
 
 // Create the client (exposed globally as window.sb)
