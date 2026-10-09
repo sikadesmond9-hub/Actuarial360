@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — ActuarialUCC</title>
+  <meta name="description" content="Create your ActuarialUCC account." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">AΣ</span>
+        <span class="logo-text">Actuarial<span class="accent">UCC</span></span>
+      </a>
+      <button class="menu-toggle" aria-label="Open menu">☰</button>
+      <nav class="nav">
+        <ul>
+          <li><a href="about.html">The Program</a></li>
+          <li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="executives.html">Executives</a></li>
+          <li><a href="learning.html">Learning Hub</a></li>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="login.html" class="btn-outline">Login</a></li>
+          <li><a href="register.html" class="btn-primary small">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="auth-wrap">
+    <div class="auth-card wide">
+      <h1>Create your account</h1>
+      <p class="auth-sub">Join the Actuarial Science community at UCC.</p>
+
+      <div class="notice-banner small">
+        🔒 <strong>Demo mode.</strong> Real accounts arrive in Stage 2. Fill this form to see the design.
+      </div>
+
+      <form class="auth-form" onsubmit="event.preventDefault(); alert('Registration is not yet active — coming in Stage 2 with real accounts.');">
+        <div class="form-grid">
+          <label>
+            Full name
+            <input type="text" name="fullname" placeholder="e.g. Kofi Mensah" required />
+          </label>
+
+          <label>
+            Student ID
+            <input type="text" name="studentId" placeholder="e.g. AS/100/2024/001" required />
+          </label>
+
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@example.com" required />
+          </label>
+
+          <label>
+            Phone
+            <input type="tel" name="phone" placeholder="+233 XX XXX XXXX" />
+          </label>
+
+          <label>
+            Level
+            <select name="level" required>
+              <option value="">Select your level</option>
+              <option value="100">Level 100</option>
+              <option value="200">Level 200</option>
+              <option value="300">Level 300</option>
+              <option value="400">Level 400</option>
+              <option value="Alumni">Alumni</option>
+            </select>
+          </label>
+
+          <label>
+            Role
+            <select name="role" required>
+              <option value="">Select your role</option>
+              <option value="Student">Student</option>
+              <option value="Executive">Executive</option>
+              <option value="Mentor">Mentor</option>
+              <option value="Lecturer">Lecturer</option>
+            </select>
+          </label>
+
+          <label class="span-2">
+            Password
+            <input type="password" name="password" placeholder="At least 8 characters" required minlength="8" />
+          </label>
+
+          <label class="span-2">
+            Confirm password
+            <input type="password" name="confirm" placeholder="Type password again" required minlength="8" />
+          </label>
+        </div>
+
+        <label class="checkbox">
+          <input type="checkbox" required />
+          I agree to the <a href="#" class="link-more">Terms</a> and <a href="#" class="link-more">Privacy Policy</a>
+        </label>
+
+        <button type="submit" class="btn-primary full">Create Account</button>
+      </form>
+
+      <p class="auth-foot">
+        Already have an account? <a href="login.html" class="link-more">Log in</a>
+      </p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><h4>ActuarialUCC</h4><p class="muted">A student-run hub for the Actuarial Science community at the University of Cape Coast.</p></div>
+      <div><h4>Program</h4><ul><li><a href="about.html">About</a></li><li><a href="curriculum.html">Curriculum</a></li><li><a href="executives.html">Executives</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
+      <div><h4>Account</h4><ul><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
