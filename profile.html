@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile — ActuarialUCC</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">AΣ</span>
+        <span class="logo-text">Actuarial<span class="accent">UCC</span></span>
+      </a>
+      <button class="menu-toggle" aria-label="Open menu">☰</button>
+      <nav class="nav">
+        <ul>
+          <li><a href="about.html">The Program</a></li>
+          <li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="executives.html">Executives</a></li>
+          <li><a href="learning.html">Learning Hub</a></li>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="login.html" class="btn-outline">Login</a></li>
+          <li><a href="register.html" class="btn-primary small">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-breadcrumb"><a href="index.html">Home</a> / My Profile</p>
+      <h1>My Profile</h1>
+      <p class="page-sub">Update your photo, bio and interests.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="profile-edit-wrap" id="profileWrap">
+
+        <div class="empty-state" id="loadingState">
+          <span class="empty-icon">⏳</span>
+          <h3>Loading your profile…</h3>
+        </div>
+
+        <div class="empty-state" id="notLoggedIn" style="display:none;">
+          <span class="empty-icon">🔒</span>
+          <h3>Please log in</h3>
+          <p>You must be logged in to edit your profile.</p>
+          <a href="login.html" class="btn-primary" style="margin-top:16px; display:inline-block;">Go to Login</a>
+        </div>
+
+        <div class="profile-edit-card" id="editCard" style="display:none;">
+          <div class="profile-photo-section">
+            <div class="profile-photo-preview" id="photoPreview">?</div>
+            <label for="photoInput" class="btn-outline small" style="cursor:pointer; display:inline-block; margin-top:12px;">
+              📷 Choose Photo
+            </label>
+            <input type="file" id="photoInput" accept="image/*" style="display:none;" />
+            <p class="muted" style="font-size:0.8rem; margin-top:8px;">JPG, PNG or WEBP · Max 2MB</p>
+          </div>
+
+          <form class="auth-form" id="profileForm">
+            <label>
+              Full name
+              <input type="text" name="full_name" required />
+            </label>
+
+            <label>
+              Student ID
+              <input type="text" name="student_id" required />
+            </label>
+
+            <label>
+              Level
+              <select name="level" required>
+                <option value="">Select level</option>
+                <option value="100">Level 100</option>
+                <option value="200">Level 200</option>
+                <option value="300">Level 300</option>
+                <option value="400">Level 400</option>
+              </select>
+            </label>
+
+            <label>
+              Bio
+              <textarea name="bio" rows="3" placeholder="Short description about you…"></textarea>
+            </label>
+
+            <label>
+              Interests (comma-separated)
+              <input type="text" name="interests" placeholder="e.g. Life Insurance, Python, Pensions" />
+            </label>
+
+            <button type="submit" class="btn-primary full" id="saveBtn">Save Changes</button>
+
+            <p id="profileMessage" style="margin-top:14px; text-align:center; font-size:0.9rem; font-weight:600;"></p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><h4>ActuarialUCC</h4><p class="muted">A student-run hub for the Actuarial Science community at the University of Cape Coast.</p></div>
+      <div><h4>Program</h4><ul><li><a href="about.html">About</a></li><li><a href="curriculum.html">Curriculum</a></li><li><a href="executives.html">Executives</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
+      <div><h4>Account</h4><ul><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/main.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>
