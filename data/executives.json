@@ -1,1 +1,13 @@
 []
+[
+  {
+    "name": "Full Name",
+    "role": "President",
+    "level": 400,
+    "bio": "Short vision statement.",
+    "socials": {
+      "email": "name@example.com",
+      "phone": "+233XXXXXXXXX"
+    }
+  }
+]
