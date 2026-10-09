@@ -14,4 +14,5 @@ const SUPABASE_ = "sb_publishable_nE5Qcz5wvihJ730AjqZ44w_mo1nZa0c";
 window.sb = window.supabase.createClient(zrrvehekvkwqxepayoza,sb_publishable_nE5Qcz5wvihJ730AjqZ44w_mo1nZa0c );
 
 // Quick console message so you know it loaded
-console.log("✅ Supabase client initialised for",zrrvehekvkwqxepayoza );
+console.log("✅ Supabase client initialised for","https://zrrvehekvkwqxepayozs.supabase.co";
+ );
