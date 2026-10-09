@@ -1,93 +1,119 @@
-// ===== MARKETPLACE =====
-document.addEventListener('DOMContentLoaded', async () => {
-  const grid = document.getElementById('productGrid');
-  const emptyState = document.getElementById('productEmpty');
-  const countEl = document.getElementById('productCount');
-  const searchInput = document.getElementById('productSearch');
-  const tabs = document.querySelectorAll('#catTabs .level-tab');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketplace — ActuarialUCC</title>
+  <meta name="description" content="Buy and sell actuarial textbooks, calculators, past questions and study materials within the UCC Actuarial Science community." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
 
-  if (!grid) return;
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">AΣ</span>
+        <span class="logo-text">Actuarial<span class="accent">UCC</span></span>
+      </a>
+      <button class="menu-toggle" aria-label="Open menu">☰</button>
+      <nav class="nav">
+        <ul>
+          <li><a href="about.html">The Program</a></li>
+          <li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="executives.html">Executives</a></li>
+          <li><a href="learning.html">Learning Hub</a></li>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="login.html" class="btn-outline">Login</a></li>
+          <li><a href="register.html" class="btn-primary small">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  let allProducts = [];
-  let currentCat = 'all';
-  let currentSearch = '';
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-breadcrumb"><a href="index.html">Home</a> / Marketplace</p>
+      <h1>Actuarial Marketplace</h1>
+      <p class="page-sub">
+        Buy and sell textbooks, calculators, past questions and study materials —
+        within the UCC Actuarial Science community.
+      </p>
+    </div>
+  </section>
 
-  try {
-    const res = await fetch('data/products.json');
-    if (!res.ok) throw new Error('Failed to load products.json');
-    allProducts = await res.json();
-  } catch (err) {
-    console.warn('Products load error:', err);
-    allProducts = [];
-  }
+  <section class="section">
+    <div class="container">
+      <div class="section-head center">
+        <h2>How the Marketplace Works</h2>
+        <p class="section-sub">Simple, community-first trading.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><h3>Browse</h3><p>Find textbooks, calculators and study materials.</p></div>
+        <div class="step"><div class="step-num">2</div><h3>Contact Seller</h3><p>Reach out via email or phone to agree a price.</p></div>
+        <div class="step"><div class="step-num">3</div><h3>Meet &amp; Swap</h3><p>Meet on campus and complete the exchange.</p></div>
+      </div>
+      <div class="notice-banner">
+        🛒 <strong>Online payments coming soon.</strong>
+        For now, contact sellers directly. All trades happen in person, on campus.
+      </div>
+    </div>
+  </section>
 
-  function formatPrice(p) {
-    if (p.price === undefined || p.price === null || p.price === '') return '';
-    return `GH₵${Number(p.price).toLocaleString()}`;
-  }
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Browse Items</h2>
+        <p class="section-sub">Filter by category or search by name.</p>
+      </div>
 
-  function render() {
-    const filtered = allProducts.filter(p => {
-      const catMatch = currentCat === 'all' || p.category === currentCat;
-      const q = currentSearch.trim().toLowerCase();
-      const searchMatch = !q ||
-        (p.name && p.name.toLowerCase().includes(q)) ||
-        (p.description && p.description.toLowerCase().includes(q));
-      return catMatch && searchMatch;
-    });
+      <div class="dir-controls">
+        <div class="level-tabs" id="catTabs">
+          <button class="level-tab active" data-cat="all">All</button>
+          <button class="level-tab" data-cat="Textbooks">Textbooks</button>
+          <button class="level-tab" data-cat="Calculators">Calculators</button>
+          <button class="level-tab" data-cat="Past Questions">Past Questions</button>
+          <button class="level-tab" data-cat="Stationery">Stationery</button>
+          <button class="level-tab" data-cat="Software">Software</button>
+          <button class="level-tab" data-cat="Other">Other</button>
+        </div>
 
-    if (!filtered.length) {
-      grid.innerHTML = '';
-      emptyState.style.display = 'block';
-      countEl.textContent = '';
-      return;
-    }
+        <div class="dir-search">
+          <input type="text" id="productSearch" placeholder="Search by item name…" />
+        </div>
+      </div>
 
-    emptyState.style.display = 'none';
-    countEl.textContent = `${filtered.length} item${filtered.length !== 1 ? 's' : ''} found`;
+      <p class="dir-count" id="productCount"></p>
 
-    grid.innerHTML = filtered.map(p => {
-      const price = formatPrice(p);
-      const email = p.contactEmail || '';
-      const phone = p.contactPhone || '';
-      const actions = [
-        email ? `<a class="btn-primary small" href="mailto:${email}?subject=Marketplace%20—%20${encodeURIComponent(p.name || 'Item')}">✉️ Email Seller</a>` : '',
-        phone ? `<a class="btn-outline" href="tel:${phone}">📞 Call</a>` : ''
-      ].filter(Boolean).join('');
+      <div class="product-grid" id="productGrid"></div>
 
-      return `
-        <article class="product-card">
-          <div class="product-thumb">${p.image ? `<img src="${p.image}" alt="${p.name || ''}" loading="lazy" />` : (p.category ? p.category.charAt(0) : '🛒')}</div>
-          <div class="product-body">
-            ${p.category ? `<span class="product-cat">${p.category}</span>` : ''}
-            <h3>${p.name || 'Untitled Item'}</h3>
-            ${p.description ? `<p class="product-desc">${p.description}</p>` : ''}
-            <div class="product-meta">
-              ${price ? `<span class="product-price">${price}</span>` : '<span class="product-price">Contact for price</span>'}
-              ${p.condition ? `<span class="product-condition">${p.condition}</span>` : ''}
-            </div>
-            ${actions ? `<div class="product-actions">${actions}</div>` : ''}
-          </div>
-        </article>
-      `;
-    }).join('');
-  }
+      <div class="empty-state" id="productEmpty">
+        <span class="empty-icon">🛒</span>
+        <h3>No items listed yet</h3>
+        <p>Marketplace items will appear here once products are added.</p>
+      </div>
+    </div>
+  </section>
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      currentCat = tab.dataset.cat;
-      render();
-    });
-  });
+  <section class="cta">
+    <div class="container cta-inner">
+      <h2>Have Something to Sell?</h2>
+      <p>Textbooks, calculators, past questions — list them here and reach fellow students.</p>
+      <a href="register.html" class="btn-primary">Create an Account</a>
+    </div>
+  </section>
 
-  if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      currentSearch = e.target.value;
-      render();
-    });
-  }
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><h4>ActuarialUCC</h4><p class="muted">A student-run hub for the Actuarial Science community at the University of Cape Coast.</p></div>
+      <div><h4>Program</h4><ul><li><a href="about.html">About</a></li><li><a href="curriculum.html">Curriculum</a></li><li><a href="executives.html">Executives</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
+      <div><h4>Account</h4><ul><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
+  </footer>
 
-  render();
-});
+  <script src="js/main.js"></script>
+  <script src="js/marketplace.js"></script>
+</body>
+</html>
