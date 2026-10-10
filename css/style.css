@@ -1623,3 +1623,12 @@ h1, h2, h3, h4 {
   .auth-form .form-grid { grid-template-columns: 1fr; }
   .auth-form .form-grid .span-2 { grid-column: auto; }
 }
+/* Fix: sticky header overlaps page-hero on scroll */
+.page-hero {
+  padding-top: 80px;
+}
+
+/* Ensure smooth scrolling doesn't hide anchor targets */
+html {
+  scroll-padding-top: 80px;
+}
