@@ -36,7 +36,7 @@
       <p class="page-breadcrumb"><a href="index.html">Home</a> / Executives</p>
       <h1>Meet the Executives</h1>
       <p class="page-sub">
-        The students leading the Actuarial Science community at UCC — their roles, vision and contact.
+        The students leading the Actuarial Science community at UCC.
       </p>
     </div>
   </section>
@@ -44,29 +44,19 @@
   <section class="section">
     <div class="container">
 
-      <div class="dir-controls">
-        <div class="level-tabs" id="roleTabs">
-          <button class="level-tab active" data-role="all">All Roles</button>
-          <button class="level-tab" data-role="President">President</button>
-          <button class="level-tab" data-role="Vice President">Vice President</button>
-          <button class="level-tab" data-role="Secretary">Secretary</button>
-          <button class="level-tab" data-role="Organizer">Organizer</button>
-          <button class="level-tab" data-role="Treasurer">Treasurer</button>
-        </div>
-
-        <div class="dir-search">
-          <input type="text" id="execSearch" placeholder="Search by name or role…" />
-        </div>
-      </div>
-
       <p class="dir-count" id="execCount"></p>
 
-      <div class="exec-grid" id="execGrid"></div>
+      <div class="student-grid" id="execGrid"></div>
 
-      <div class="empty-state" id="execEmpty">
+      <div class="empty-state" id="execEmpty" style="display:none;">
         <span class="empty-icon">👥</span>
-        <h3>No executives listed yet</h3>
-        <p>Executive profiles will appear here once data is added.</p>
+        <h3>No executives yet</h3>
+        <p>Executives will appear here once they register with the Executive role.</p>
+      </div>
+
+      <div class="empty-state" id="execLoading">
+        <span class="empty-icon">⏳</span>
+        <h3>Loading executives…</h3>
       </div>
 
     </div>
@@ -82,7 +72,71 @@
     <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
   </footer>
 
-  <script src="js/main.js"></script><script src="js/auth.js"></script>
-  <script src="js/executives.js"></script><script src="js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/main.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const grid = document.getElementById('execGrid');
+      const empty = document.getElementById('execEmpty');
+      const loading = document.getElementById('execLoading');
+      const count = document.getElementById('execCount');
+
+      try {
+        const { data, error } = await window.sb
+          .from('profiles')
+          .select('full_name, student_id, level, role, bio, photo_url, interests')
+          .eq('role', 'Executive')
+          .order('full_name', { ascending: true });
+
+        if (error) throw error;
+
+        loading.style.display = 'none';
+
+        if (!data || !data.length) {
+          empty.style.display = 'block';
+          return;
+        }
+
+        count.textContent = `${data.length} executive${data.length !== 1 ? 's' : ''}`;
+
+        grid.innerHTML = data.map(s => {
+          const initials = (s.full_name || '?')
+            .split(' ')
+            .filter(Boolean)
+            .slice(0, 2)
+            .map(w => w[0].toUpperCase())
+            .join('');
+          const avatarInner = s.photo_url
+            ? `<img src="${s.photo_url}" alt="${s.full_name}" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />`
+            : initials;
+          const interests = Array.isArray(s.interests) ? s.interests : [];
+
+          return `
+            <article class="student-card student-card-exec">
+              <span class="exec-ribbon">👑 Executive</span>
+              <div class="student-avatar avatar-exec">${avatarInner}</div>
+              <div class="student-body">
+                <h3>${s.full_name || 'Unnamed'}</h3>
+                ${s.level ? `<p class="student-level">Level ${s.level}</p>` : ''}
+                ${s.student_id ? `<p class="student-id">ID: ${s.student_id}</p>` : ''}
+                ${s.bio ? `<p class="student-bio">${s.bio}</p>` : ''}
+                ${interests.length ? `
+                  <div class="student-tags">
+                    ${interests.map(t => `<span>${t}</span>`).join('')}
+                  </div>
+                ` : ''}
+              </div>
+            </article>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error(err);
+        loading.innerHTML = '<span class="empty-icon">⚠️</span><h3>Could not load executives</h3><p>' + (err.message || '') + '</p>';
+      }
+    });
+  </script>
 </body>
 </html>
