@@ -66,24 +66,23 @@ document.addEventListener('DOMContentLoaded', async () => {
       const avatarInner = s.photo_url
         ? `<img src="${s.photo_url}" alt="${s.full_name}" style="width:100%;height:100%;object-fit:cover;border-radius:14px;" />`
         : initials;
-
-      return `
-        <article class="student-card">
-          <div class="student-avatar">${avatarInner}</div>
-          <div class="student-body">
-            <h3>${s.full_name || 'Unnamed Student'}</h3>
-            ${s.level ? `<p class="student-level">Level ${s.level}</p>` : ''}
-            ${s.role && s.role !== 'Student' ? `<p class="student-level" style="background:#dbeafe;color:#1e40af;">${s.role}</p>` : ''}
-            ${s.student_id ? `<p class="student-id">ID: ${s.student_id}</p>` : ''}
-            ${s.bio ? `<p class="student-bio">${s.bio}</p>` : ''}
-            ${interests.length ? `
-              <div class="student-tags">
-                ${interests.map(t => `<span>${t}</span>`).join('')}
-              </div>
-            ` : ''}
-          </div>
-        </article>
-      `;
+ return `
+  <article class="student-card">
+    <div class="student-avatar">${avatarInner}</div>
+    <div class="student-body">
+      <h3>${s.full_name || 'Unnamed Student'}</h3>
+      ${s.level ? `<p class="student-level">Level ${s.level}</p>` : ''}
+      ${s.role && s.role !== 'Student' ? `<p class="student-level" style="background:#dbeafe;color:#1e40af;">${s.role}</p>` : ''}
+      ${s.student_id ? `<p class="student-id">ID: ${s.student_id}</p>` : ''}
+      ${s.bio ? `<p class="student-bio">${s.bio}</p>` : ''}
+      ${interests.length ? `
+        <div class="student-tags">
+          ${interests.map(t => `<span>${t}</span>`).join('')}
+        </div>
+      ` : ''}
+    </div>
+  </article>
+`;     `;
     }).join('');
   }
 
