@@ -1632,3 +1632,55 @@ h1, h2, h3, h4 {
 html {
   scroll-padding-top: 80px;
 }
+/* =============================================================
+   EXECUTIVE & ROLE BADGES
+   ============================================================= */
+.student-card-exec {
+  border: 2px solid #d4a017;
+  background: linear-gradient(180deg, #fffbeb 0%, #ffffff 40%);
+  position: relative;
+}
+
+.student-card-exec:hover {
+  box-shadow: 0 14px 36px rgba(212, 160, 23, 0.25);
+}
+
+.exec-ribbon {
+  position: absolute;
+  top: -1px;
+  right: 14px;
+  background: linear-gradient(135deg, #f59e0b, #d4a017);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(212, 160, 23, 0.35);
+}
+
+.avatar-exec {
+  box-shadow: 0 6px 18px rgba(212, 160, 23, 0.45) !important;
+  background: linear-gradient(135deg, #d4a017, #f59e0b) !important;
+}
+
+.badge-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-left: 6px;
+}
+
+.badge-mentor {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-lecturer {
+  background: #ede9fe;
+  color: #6d28d9;
+}
