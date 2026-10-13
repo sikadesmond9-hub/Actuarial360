@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (!messages) return;
 
-  // Check login
   const { data: { session } } = await window.sb.auth.getSession();
   if (!session) {
     notLoggedIn.style.display = 'block';
@@ -45,6 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let mediaRecorder = null;
   let audioChunks = [];
   let recordedBlob = null;
+  let recordedMime = 'audio/webm';
   let recInterval = null;
   let recStartTime = 0;
 
@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `${m}:${s}`;
   }
 
-  // ---- Build a message's HTML (async because mentions need to load) ----
   async function buildMessageHtml(m, profile, mine) {
     const initials = (profile.full_name || '?')
       .split(' ')
@@ -104,6 +103,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       content += `
         <div class="voice-note">
           <audio controls preload="metadata" src="${m.voice_url}"></audio>
+          <div style="font-size:0.7rem; opacity:0.7; margin-top:4px;">
+            <a href="${m.voice_url}" target="_blank" rel="noopener">Open audio ↗</a>
+          </div>
         </div>
       `;
     }
@@ -122,7 +124,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     `;
   }
 
-  // ---- Render a list of messages ----
   async function renderMessages(list) {
     if (!list.length) {
       messages.innerHTML = '';
@@ -131,17 +132,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
     chatEmpty.style.display = 'none';
-
     const items = await Promise.all(list.map(async m => {
       const profile = await getProfile(m.sender_id);
       return await buildMessageHtml(m, profile, m.sender_id === userId);
     }));
-
     messages.innerHTML = items.join('');
     messages.scrollTop = messages.scrollHeight;
   }
 
-  // ---- Load a room + subscribe to realtime ----
   async function loadRoom(room) {
     currentRoom = room;
     messages.innerHTML = '<div class="chat-empty"><span>⏳</span><p>Loading messages…</p></div>';
@@ -169,14 +167,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       messages.innerHTML = '<div class="chat-empty"><span>⚠️</span><p>Could not load messages.</p></div>';
       return;
     }
-
     await renderMessages(data || []);
 
     if (subscription) {
       window.sb.removeChannel(subscription);
       subscription = null;
     }
-
     subscription = window.sb
       .channel('chat_' + room)
       .on('postgres_changes',
@@ -225,24 +221,66 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ---- Voice recording ----
   micBtn.addEventListener('click', async () => {
-    // If recording, stop it
     if (mediaRecorder && mediaRecorder.state === 'recording') {
       mediaRecorder.stop();
       return;
     }
 
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true
+        }
+      });
+
+      // DEBUG LOGS
+      const track = stream.getAudioTracks()[0];
+      console.log('🎤 Stream tracks:', stream.getAudioTracks());
+      console.log('🎤 Track enabled:', track?.enabled);
+      console.log('🎤 Track muted:', track?.muted);
+      console.log('🎤 Track label:', track?.label);
+      console.log('🎤 Track settings:', track?.getSettings());
+
       audioChunks = [];
-      mediaRecorder = new MediaRecorder(stream);
+
+      // Prefer MP4 (universal playback), fall back to WebM
+      let mimeType = '';
+      if (MediaRecorder.isTypeSupported('audio/mp4')) {
+        mimeType = 'audio/mp4';
+      } else if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+        mimeType = 'audio/webm;codecs=opus';
+      } else if (MediaRecorder.isTypeSupported('audio/webm')) {
+        mimeType = 'audio/webm';
+      }
+      console.log('🎤 Chosen mimeType:', mimeType || 'default');
+
+      try {
+        mediaRecorder = mimeType
+          ? new MediaRecorder(stream, { mimeType })
+          : new MediaRecorder(stream);
+      } catch (e) {
+        console.warn('MediaRecorder with mimeType failed, using default', e);
+        mediaRecorder = new MediaRecorder(stream);
+      }
+
+      recordedMime = mediaRecorder.mimeType || 'audio/webm';
 
       mediaRecorder.addEventListener('dataavailable', (e) => {
+        console.log('🎤 dataavailable size:', e.data.size);
         if (e.data.size > 0) audioChunks.push(e.data);
       });
 
       mediaRecorder.addEventListener('stop', () => {
         stream.getTracks().forEach(t => t.stop());
-        recordedBlob = new Blob(audioChunks, { type: 'audio/webm' });
+
+        const totalSize = audioChunks.reduce((s, c) => s + c.size, 0);
+        console.log('🎤 Total recorded bytes:', totalSize);
+
+        recordedBlob = new Blob(audioChunks, { type: recordedMime });
+        console.log('🎤 Blob size:', recordedBlob.size, 'type:', recordedBlob.type);
+
         const url = URL.createObjectURL(recordedBlob);
         voiceAudioPreview.src = url;
         voicePreview.style.display = 'block';
@@ -264,10 +302,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const sec = Math.floor((Date.now() - recStartTime) / 1000);
         recTimer.textContent = formatDuration(sec);
         voiceTimer.textContent = formatDuration(sec);
-        if (sec >= 120) mediaRecorder.stop(); // max 2 min
+        if (sec >= 120) mediaRecorder.stop();
       }, 500);
 
     } catch (err) {
+      console.error('Mic error:', err);
       alert('Could not access microphone: ' + err.message);
     }
   });
@@ -280,20 +319,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   voiceSend.addEventListener('click', async () => {
     if (!recordedBlob) return;
-
     voiceSend.disabled = true;
     voiceSend.textContent = 'Uploading…';
 
     try {
-      const path = `${userId}/${Date.now()}.webm`;
+      const isMp4 = (recordedBlob.type || '').includes('mp4');
+      const ext = isMp4 ? 'mp4' : 'webm';
+      const path = `${userId}/${Date.now()}.${ext}`;
+
+      console.log('☁️ Uploading', path, 'type:', recordedBlob.type, 'size:', recordedBlob.size);
+
       const { error: uploadErr } = await window.sb.storage
         .from('voice-notes')
-        .upload(path, recordedBlob, { contentType: 'audio/webm', cacheControl: '3600' });
+        .upload(path, recordedBlob, {
+          contentType: recordedBlob.type || 'audio/webm',
+          cacheControl: '3600'
+        });
 
       if (uploadErr) throw uploadErr;
 
       const { data: urlData } = window.sb.storage.from('voice-notes').getPublicUrl(path);
       const voiceUrl = urlData.publicUrl;
+      console.log('☁️ Uploaded →', voiceUrl);
 
       const { error: insertErr } = await window.sb
         .from('chat_messages')
@@ -313,7 +360,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       messages.insertAdjacentHTML('beforeend', html);
       messages.scrollTop = messages.scrollHeight;
 
-      // Reset
       voicePreview.style.display = 'none';
       recordedBlob = null;
       voiceAudioPreview.src = '';
@@ -327,16 +373,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  // Room tabs
   roomTabs.forEach(tab => {
     tab.addEventListener('click', () => loadRoom(tab.dataset.room));
   });
 
-  // Attach @-mention autocomplete to chat input
   if (window.Mentions && window.Mentions.attachAutocomplete) {
     window.Mentions.attachAutocomplete(input);
   }
 
-  // Load default room
   await loadRoom('general');
 });
