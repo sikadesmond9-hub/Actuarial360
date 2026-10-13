@@ -1967,3 +1967,73 @@ html {
   .chat-header { padding: 12px 16px; }
   .chat-messages { padding: 14px; }
 }
+/* =============================================================
+   MENTIONS
+   ============================================================= */
+.mention {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.mention:hover { background: var(--primary); color: #fff; }
+
+.chat-msg.mine .mention {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+.chat-msg.mine .mention:hover { background: rgba(255,255,255,0.4); }
+
+.mention-dropdown {
+  position: absolute;
+  bottom: 110%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+  padding: 6px;
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 50;
+}
+
+.mention-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.mention-option:hover,
+.mention-option.selected { background: var(--primary-light); }
+
+.mention-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent-warm));
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.mention-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.mention-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+.mention-meta {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
