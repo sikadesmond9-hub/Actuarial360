@@ -39,9 +39,7 @@ body {
   font-weight: 400;
 }
 
-/* ===== CHAT PAGE LOCK =====
-   When body has class "chat-page-lock" (added in chat.html),
-   the whole page doesn't scroll — only the messages area does. */
+/* CHAT PAGE LOCK */
 body.chat-page-lock {
   overflow: hidden;
   height: 100vh;
@@ -73,9 +71,7 @@ h1, h2, h3, h4 {
   padding: 0 22px;
 }
 
-/* =========================================================
-   HEADER
-   ========================================================= */
+/* HEADER */
 .site-header {
   position: sticky;
   top: 0;
@@ -133,9 +129,7 @@ h1, h2, h3, h4 {
 }
 .menu-toggle:hover { background: var(--bg-alt); }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
+/* BUTTONS */
 .btn-primary {
   background: linear-gradient(135deg, #10b981, #059669);
   color: #ffffff !important;
@@ -188,9 +182,7 @@ h1, h2, h3, h4 {
   transform: translateY(-2px);
 }
 
-/* =========================================================
-   HERO
-   ========================================================= */
+/* HERO */
 .hero {
   position: relative;
   overflow: hidden;
@@ -279,9 +271,7 @@ h1, h2, h3, h4 {
 }
 .hero-stats span { font-size: 0.85rem; opacity: 0.75; }
 
-/* =========================================================
-   SECTIONS
-   ========================================================= */
+/* SECTIONS */
 .section { padding: 85px 0; }
 .section-alt { background: var(--bg-alt); }
 .section-head { margin-bottom: 42px; }
@@ -302,9 +292,7 @@ h1, h2, h3, h4 {
 }
 .link-more:hover { color: var(--primary-dark); }
 
-/* =========================================================
-   QUICK GRID
-   ========================================================= */
+/* QUICK GRID */
 .quick-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -342,9 +330,7 @@ h1, h2, h3, h4 {
 .quick-card h3 { font-size: 1.08rem; margin-bottom: 6px; }
 .quick-card p { color: var(--muted); font-size: 0.9rem; }
 
-/* =========================================================
-   SPLIT
-   ========================================================= */
+/* SPLIT */
 .split {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -369,9 +355,7 @@ h1, h2, h3, h4 {
   box-shadow: var(--shadow-green);
 }
 
-/* =========================================================
-   FEATURES
-   ========================================================= */
+/* FEATURES */
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -395,9 +379,7 @@ h1, h2, h3, h4 {
 .feature h4 { font-size: 1rem; margin-bottom: 4px; }
 .feature p { font-size: 0.88rem; color: var(--muted); }
 
-/* =========================================================
-   CTA
-   ========================================================= */
+/* CTA */
 .cta {
   position: relative;
   overflow: hidden;
@@ -435,9 +417,7 @@ h1, h2, h3, h4 {
   box-shadow: 0 12px 28px rgba(255,255,255,0.25);
 }
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
+/* FOOTER */
 .site-footer {
   background: var(--dark);
   color: #cbd5e1;
@@ -470,9 +450,7 @@ h1, h2, h3, h4 {
   color: #94a3b8;
 }
 
-/* =========================================================
-   PAGE HERO
-   ========================================================= */
+/* PAGE HERO */
 .page-hero {
   position: relative;
   overflow: hidden;
@@ -507,9 +485,7 @@ h1, h2, h3, h4 {
   font-size: 1rem;
 }
 
-/* =========================================================
-   CHECK LIST
-   ========================================================= */
+/* CHECK LIST */
 .check-list { margin: 14px 0 18px; padding-left: 0; }
 .check-list li {
   position: relative;
@@ -526,9 +502,7 @@ h1, h2, h3, h4 {
   font-size: 1.05rem;
 }
 
-/* =========================================================
-   TIMELINE
-   ========================================================= */
+/* TIMELINE */
 .timeline {
   position: relative;
   max-width: 840px;
@@ -580,9 +554,7 @@ h1, h2, h3, h4 {
 .timeline-content h3 { font-size: 1.1rem; margin-bottom: 8px; }
 .timeline-content p { font-size: 0.94rem; color: #4b5563; }
 
-/* =========================================================
-   MISSION & VISION
-   ========================================================= */
+/* MISSION & VISION */
 .mv-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -606,9 +578,7 @@ h1, h2, h3, h4 {
 .mv-card h3 { margin-bottom: 10px; font-size: 1.15rem; }
 .mv-card p { color: var(--muted); font-size: 0.94rem; }
 
-/* =========================================================
-   LEVEL TABS
-   ========================================================= */
+/* LEVEL TABS */
 .level-tabs {
   display: flex;
   justify-content: center;
@@ -698,9 +668,7 @@ h1, h2, h3, h4 {
   color: var(--muted);
 }
 
-/* =========================================================
-   STEPS
-   ========================================================= */
+/* STEPS */
 .steps {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -726,9 +694,7 @@ h1, h2, h3, h4 {
 .step h3 { margin-bottom: 6px; color: var(--dark); }
 .step p { color: var(--muted); font-size: 0.92rem; }
 
-/* =========================================================
-   DIRECTORY CONTROLS
-   ========================================================= */
+/* DIRECTORY CONTROLS */
 .dir-controls {
   display: flex;
   justify-content: space-between;
@@ -756,9 +722,7 @@ h1, h2, h3, h4 {
 }
 .dir-count { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
 
-/* =========================================================
-   STUDENT CARDS
-   ========================================================= */
+/* STUDENT CARDS */
 .student-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -826,9 +790,7 @@ h1, h2, h3, h4 {
   border: 1px solid var(--border);
 }
 
-/* =========================================================
-   EXECUTIVE CARDS
-   ========================================================= */
+/* EXECUTIVE CARDS */
 .exec-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -911,9 +873,7 @@ h1, h2, h3, h4 {
   transform: translateY(-2px);
 }
 
-/* =========================================================
-   NOTICE BANNER
-   ========================================================= */
+/* NOTICE BANNER */
 .notice-banner {
   margin-top: 40px;
   padding: 16px 22px;
@@ -931,44 +891,3 @@ h1, h2, h3, h4 {
   font-size: 0.85rem;
   text-align: left;
 }
-
-/* =========================================================
-   MENTOR CARDS
-   ========================================================= */
-.mentor-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 22px;
-}
-.mentor-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 26px 24px;
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-.mentor-card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--accent-warm));
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-.mentor-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: transparent;
-}
-.mentor-card:hover::before { opacity: 1; }
-.mentor-avatar {
-  flex-shrink: 0;
-  width: 60px;
-  height: 60px;
-  border
