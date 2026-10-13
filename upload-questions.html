@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Past Question — ActuarialUCC</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">AΣ</span>
+        <span class="logo-text">Actuarial<span class="accent">UCC</span></span>
+      </a>
+      <button class="menu-toggle" aria-label="Open menu">☰</button>
+      <nav class="nav">
+        <ul>
+          <li><a href="about.html">The Program</a></li>
+          <li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="executives.html">Executives</a></li>
+          <li><a href="learning.html">Learning Hub</a></li>
+          <li><a href="past-questions.html">Past Questions</a></li>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="login.html" class="btn-outline">Login</a></li>
+          <li><a href="register.html" class="btn-primary small">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-breadcrumb"><a href="index.html">Home</a> / <a href="past-questions.html">Past Questions</a> / Upload</p>
+      <h1>Upload a Past Question</h1>
+      <p class="page-sub">Help fellow students study. Share exams you already have.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="profile-edit-wrap">
+
+        <div class="empty-state" id="loadingState">
+          <span class="empty-icon">⏳</span>
+          <h3>Loading…</h3>
+        </div>
+
+        <div class="empty-state" id="notLoggedIn" style="display:none;">
+          <span class="empty-icon">🔒</span>
+          <h3>Please log in</h3>
+          <p>You must be logged in to upload past questions.</p>
+          <a href="login.html" class="btn-primary" style="margin-top:16px; display:inline-block;">Go to Login</a>
+        </div>
+
+        <div class="profile-edit-card" id="uploadCard" style="display:none;">
+          <form class="auth-form" id="uploadForm">
+            <label>
+              Course code
+              <input type="text" name="course_code" placeholder="e.g. ACT 301" required maxlength="20" />
+            </label>
+
+            <label>
+              Course title (optional)
+              <input type="text" name="course_title" placeholder="e.g. Financial Mathematics" maxlength="80" />
+            </label>
+
+            <label>
+              Level
+              <select name="level" required>
+                <option value="">Select level</option>
+                <option value="100">Level 100</option>
+                <option value="200">Level 200</option>
+                <option value="300">Level 300</option>
+                <option value="400">Level 400</option>
+              </select>
+            </label>
+
+            <label>
+              Exam year
+              <input type="number" name="exam_year" placeholder="e.g. 2024" min="2000" max="2099" required />
+            </label>
+
+            <label>
+              Semester
+              <select name="semester">
+                <option value="">Select semester</option>
+                <option value="First">First Semester</option>
+                <option value="Second">Second Semester</option>
+              </select>
+            </label>
+
+            <label>
+              Description (optional)
+              <textarea name="description" rows="3" placeholder="Any notes about this exam…" maxlength="300"></textarea>
+            </label>
+
+            <label>
+              PDF file
+              <input type="file" name="file" id="fileInput" accept=".pdf,application/pdf" required />
+            </label>
+            <p class="muted" style="font-size:0.8rem; margin-top:-8px;">PDF only · Max 10MB</p>
+
+            <button type="submit" class="btn-primary full" id="uploadBtn">Upload Past Question</button>
+
+            <p id="uploadMessage" style="margin-top:14px; text-align:center; font-size:0.9rem; font-weight:600;"></p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><h4>ActuarialUCC</h4><p class="muted">A student-run hub for the Actuarial Science community at the University of Cape Coast.</p></div>
+      <div><h4>Program</h4><ul><li><a href="about.html">About</a></li><li><a href="curriculum.html">Curriculum</a></li><li><a href="executives.html">Executives</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
+      <div><h4>Account</h4><ul><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/main.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/upload-question.js"></script>
+</body>
+</html>
