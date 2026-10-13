@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const roomTitle = document.getElementById('roomTitle');
   const roomSub = document.getElementById('roomSub');
 
+  // Voice UI
   const micBtn = document.getElementById('micBtn');
   const voicePreview = document.getElementById('voicePreview');
   const voiceAudioPreview = document.getElementById('voiceAudioPreview');
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (!messages) return;
 
+  // Check login
   const { data: { session } } = await window.sb.auth.getSession();
   if (!session) {
     notLoggedIn.style.display = 'block';
@@ -39,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let subscription = null;
   const profileCache = {};
 
+  // Voice recording state
   let mediaRecorder = null;
   let audioChunks = [];
   let recordedBlob = null;
@@ -73,8 +76,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `${m}:${s}`;
   }
 
+  // ---- Build a message's HTML (async because mentions need to load) ----
   async function buildMessageHtml(m, profile, mine) {
-    const initials = (profile.full_name || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+    const initials = (profile.full_name || '?')
+      .split(' ')
+      .map(w => w[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
+
     const avatar = profile.photo_url
       ? `<img src="${profile.photo_url}" alt="${profile.full_name}" />`
       : initials;
@@ -89,6 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       content += `<div class="chat-text">${bodyHtml}</div>`;
     }
+
     if (m.voice_url) {
       content += `
         <div class="voice-note">
@@ -111,6 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     `;
   }
 
+  // ---- Render a list of messages ----
   async function renderMessages(list) {
     if (!list.length) {
       messages.innerHTML = '';
@@ -119,14 +131,17 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
     chatEmpty.style.display = 'none';
+
     const items = await Promise.all(list.map(async m => {
       const profile = await getProfile(m.sender_id);
       return await buildMessageHtml(m, profile, m.sender_id === userId);
     }));
+
     messages.innerHTML = items.join('');
     messages.scrollTop = messages.scrollHeight;
   }
 
+  // ---- Load a room + subscribe to realtime ----
   async function loadRoom(room) {
     currentRoom = room;
     messages.innerHTML = '<div class="chat-empty"><span>⏳</span><p>Loading messages…</p></div>';
@@ -154,12 +169,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       messages.innerHTML = '<div class="chat-empty"><span>⚠️</span><p>Could not load messages.</p></div>';
       return;
     }
+
     await renderMessages(data || []);
 
     if (subscription) {
       window.sb.removeChannel(subscription);
       subscription = null;
     }
+
     subscription = window.sb
       .channel('chat_' + room)
       .on('postgres_changes',
@@ -208,10 +225,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ---- Voice recording ----
   micBtn.addEventListener('click', async () => {
+    // If recording, stop it
     if (mediaRecorder && mediaRecorder.state === 'recording') {
       mediaRecorder.stop();
       return;
     }
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       audioChunks = [];
@@ -245,7 +264,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const sec = Math.floor((Date.now() - recStartTime) / 1000);
         recTimer.textContent = formatDuration(sec);
         voiceTimer.textContent = formatDuration(sec);
-        if (sec >= 120) mediaRecorder.stop();
+        if (sec >= 120) mediaRecorder.stop(); // max 2 min
       }, 500);
 
     } catch (err) {
@@ -261,13 +280,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   voiceSend.addEventListener('click', async () => {
     if (!recordedBlob) return;
+
     voiceSend.disabled = true;
     voiceSend.textContent = 'Uploading…';
+
     try {
       const path = `${userId}/${Date.now()}.webm`;
       const { error: uploadErr } = await window.sb.storage
         .from('voice-notes')
         .upload(path, recordedBlob, { contentType: 'audio/webm', cacheControl: '3600' });
+
       if (uploadErr) throw uploadErr;
 
       const { data: urlData } = window.sb.storage.from('voice-notes').getPublicUrl(path);
@@ -276,6 +298,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const { error: insertErr } = await window.sb
         .from('chat_messages')
         .insert({ room: currentRoom, sender_id: userId, body: null, voice_url: voiceUrl });
+
       if (insertErr) throw insertErr;
 
       const myProfile = await getProfile(userId);
@@ -290,6 +313,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       messages.insertAdjacentHTML('beforeend', html);
       messages.scrollTop = messages.scrollHeight;
 
+      // Reset
       voicePreview.style.display = 'none';
       recordedBlob = null;
       voiceAudioPreview.src = '';
@@ -303,13 +327,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  // Room tabs
   roomTabs.forEach(tab => {
     tab.addEventListener('click', () => loadRoom(tab.dataset.room));
   });
 
+  // Attach @-mention autocomplete to chat input
   if (window.Mentions && window.Mentions.attachAutocomplete) {
     window.Mentions.attachAutocomplete(input);
   }
 
+  // Load default room
   await loadRoom('general');
 });
