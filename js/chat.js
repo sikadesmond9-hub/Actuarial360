@@ -56,7 +56,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     return div.innerHTML;
   }
 
-  async function renderMessages(list) {
+  asyncif (m.body) {
+  let bodyHtml;
+  if (window.Mentions && window.Mentions.renderMentions) {
+    bodyHtml = await window.Mentions.renderMentions(m.body);
+  } else {
+    bodyHtml = escapeHtml(m.body);
+  }
+  content += `<div class="chat-text">${bodyHtml}</div>`;
+}{
     if (!list.length) {
       messages.innerHTML = '';
       messages.appendChild(chatEmpty);
