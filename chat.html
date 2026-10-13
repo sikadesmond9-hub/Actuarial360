@@ -42,7 +42,6 @@
   <section class="section">
     <div class="container">
 
-      <!-- NOT LOGGED IN -->
       <div class="empty-state" id="notLoggedIn" style="display:none;">
         <span class="empty-icon">🔒</span>
         <h3>Log in to join the chat</h3>
@@ -50,7 +49,6 @@
         <a href="login.html" class="btn-primary" style="margin-top:16px; display:inline-block;">Log in</a>
       </div>
 
-      <!-- CHAT AREA -->
       <div class="chat-wrap" id="chatWrap" style="display:none;">
 
         <div class="chat-rooms">
@@ -73,7 +71,6 @@
           </div>
         </div>
 
-        <!-- VOICE RECORDING PREVIEW -->
         <div class="voice-preview" id="voicePreview" style="display:none;">
           <div class="voice-preview-inner">
             <button type="button" id="voiceCancel" class="voice-btn-cancel" aria-label="Cancel">✕</button>
@@ -83,7 +80,6 @@
           </div>
         </div>
 
-        <!-- INPUT WITH MIC BUTTON -->
         <form class="chat-input-form" id="chatForm">
           <button type="button" id="micBtn" class="mic-btn" aria-label="Record voice note" title="Record voice note">
             🎙️
@@ -92,7 +88,6 @@
           <button type="submit" class="btn-primary" id="chatSend">Send</button>
         </form>
 
-        <!-- RECORDING INDICATOR -->
         <div class="recording-indicator" id="recordingIndicator" style="display:none;">
           <span class="rec-dot"></span>
           <span>Recording… <span id="recTimer">0:00</span> · tap 🎙️ to stop</span>
