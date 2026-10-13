@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Actuaries Chat — ActuarialUCC</title>
-  <meta name="description" content="Live chat for Actuarial Science students, organised by level." />
+  <meta name="description" content="Live chat for Actuarial Science students — text, voice notes and mentions." />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -23,7 +23,7 @@
           <li><a href="students.html">Students</a></li>
           <li><a href="executives.html">Executives</a></li>
           <li><a href="learning.html">Learning Hub</a></li>
-          <li><a href="past-questions.html">Past Questions</a></li><li><a href="chat.html">Actuaries Chat</a></li>
+          <li><a href="past-questions.html">Past Questions</a></li>
           <li><a href="marketplace.html">Marketplace</a></li>
           <li><a href="chat.html">Actuaries Chat</a></li>
           <li><a href="login.html" class="btn-outline">Login</a></li>
@@ -54,6 +54,7 @@
 
       <!-- CHAT AREA -->
       <div class="chat-wrap" id="chatWrap" style="display:none;">
+
         <div class="chat-rooms">
           <button class="room-tab active" data-room="general">💬 General</button>
           <button class="room-tab" data-room="L100">Level 100</button>
@@ -74,10 +75,31 @@
           </div>
         </div>
 
+        <!-- VOICE RECORDING PREVIEW -->
+        <div class="voice-preview" id="voicePreview" style="display:none;">
+          <div class="voice-preview-inner">
+            <button type="button" id="voiceCancel" class="voice-btn-cancel" aria-label="Cancel">✕</button>
+            <audio id="voiceAudioPreview" controls></audio>
+            <span class="voice-timer" id="voiceTimer">0:00</span>
+            <button type="button" id="voiceSend" class="btn-primary small">Send ▶</button>
+          </div>
+        </div>
+
+        <!-- INPUT WITH MIC BUTTON -->
         <form class="chat-input-form" id="chatForm">
-          <input type="text" id="chatInput" placeholder="Type a message…" maxlength="1000" required autocomplete="off" />
+          <button type="button" id="micBtn" class="mic-btn" aria-label="Record voice note" title="Record voice note">
+            🎙️
+          </button>
+          <input type="text" id="chatInput" placeholder="Type a message… (use @ to mention someone)" maxlength="1000" autocomplete="off" />
           <button type="submit" class="btn-primary" id="chatSend">Send</button>
         </form>
+
+        <!-- RECORDING INDICATOR -->
+        <div class="recording-indicator" id="recordingIndicator" style="display:none;">
+          <span class="rec-dot"></span>
+          <span>Recording… <span id="recTimer">0:00</span> · tap 🎙️ to stop</span>
+        </div>
+
       </div>
 
     </div>
@@ -96,8 +118,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/main.js"></script>
   <script src="js/supabase.js"></script>
- <script src="js/auth.js"></script>
-<script src="js/mentions.js"></script>
-<script src="js/chat.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/mentions.js"></script>
+  <script src="js/chat.js"></script>
 </body>
 </html>
