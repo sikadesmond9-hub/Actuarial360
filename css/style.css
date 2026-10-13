@@ -1706,3 +1706,92 @@ html {
   font-size: 1.3rem;
   color: var(--dark);
 }
+/* =============================================================
+   PAST QUESTIONS LIBRARY
+   ============================================================= */
+.pq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.pq-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  display: flex;
+  gap: 16px;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.pq-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent-warm));
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.pq-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+.pq-card:hover::before { opacity: 1; }
+
+.pq-icon {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--accent-warm));
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.25);
+}
+
+.pq-body { flex: 1; min-width: 0; }
+
+.pq-code {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.pq-body h3 {
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: var(--dark);
+  line-height: 1.35;
+}
+
+.pq-meta {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.pq-desc {
+  font-size: 0.86rem;
+  color: #4b5563;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.pq-actions { margin-top: 12px; }
+
+@media (max-width: 520px) {
+  .pq-grid { grid-template-columns: 1fr; }
+  .pq-card { flex-direction: column; }
+}
