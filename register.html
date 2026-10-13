@@ -16,18 +16,21 @@
         <span class="logo-text">Actuarial<span class="accent">UCC</span></span>
       </a>
       <button class="menu-toggle" aria-label="Open menu">☰</button>
-  <nav class="nav">
-  <ul>
-    <li><a href="about.html">The Program</a></li>
-    <li><a href="curriculum.html">Curriculum</a></li>
-    <li><a href="students.html">Students</a></li>
-    <li><a href="chat.html">Actuaries Chat</a></li>
-    <li><a href="past-questions.html">Past Questions</a></li>
-    <li><a href="marketplace.html">Marketplace</a></li>
-    <li><a href="login.html" class="btn-outline">Login</a></li>
-    <li><a href="register.html" class="btn-primary small">Register</a></li>
-  </ul>
-</nav> 
+      <nav class="nav">
+        <ul>
+          <li><a href="about.html">The Program</a></li>
+          <li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="chat.html">Actuaries Chat</a></li>
+          <li><a href="past-questions.html">Past Questions</a></li>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="login.html" class="btn-outline">Login</a></li>
+          <li><a href="register.html" class="btn-primary small">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
   <section class="auth-wrap">
     <div class="auth-card wide">
       <h1>Create your account</h1>
@@ -108,16 +111,16 @@
     <div class="container footer-grid">
       <div><h4>ActuarialUCC</h4><p class="muted">A student-run hub for the Actuarial Science community at the University of Cape Coast.</p></div>
       <div><h4>Program</h4><ul><li><a href="about.html">About</a></li><li><a href="curriculum.html">Curriculum</a></li><li><a href="executives.html">Executives</a></li></ul></div>
-      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="chat.html">Actuaries Chat</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
       <div><h4>Account</h4><ul><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li></ul></div>
     </div>
     <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
   </footer>
 
-  <!-- Supabase library (must load before our scripts) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/main.js"></script><script src="js/auth.js"></script>
-  <script src="js/supabase.js"></script><script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('registerForm');
@@ -164,11 +167,7 @@
           if (error) throw error;
 
           showMessage('✅ Account created! Redirecting to the student directory…', 'success');
-
-          setTimeout(() => {
-            window.location.href = 'students.html';
-          }, 2000);
-
+          setTimeout(() => window.location.href = 'students.html', 2000);
         } catch (err) {
           console.error(err);
           showMessage('❌ ' + (err.message || 'Something went wrong. Please try again.'), 'error');
