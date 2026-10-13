@@ -1,5 +1,5 @@
 // =============================================================
-// CHAT.JS — Actuaries Chat (real-time group chat)
+// CHAT.JS — Actuaries Chat (text + voice notes + mentions)
 // =============================================================
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -14,9 +14,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const roomTitle = document.getElementById('roomTitle');
   const roomSub = document.getElementById('roomSub');
 
+  const micBtn = document.getElementById('micBtn');
+  const voicePreview = document.getElementById('voicePreview');
+  const voiceAudioPreview = document.getElementById('voiceAudioPreview');
+  const voiceSend = document.getElementById('voiceSend');
+  const voiceCancel = document.getElementById('voiceCancel');
+  const voiceTimer = document.getElementById('voiceTimer');
+  const recordingIndicator = document.getElementById('recordingIndicator');
+  const recTimer = document.getElementById('recTimer');
+
   if (!messages) return;
 
-  // Check login
   const { data: { session } } = await window.sb.auth.getSession();
   if (!session) {
     notLoggedIn.style.display = 'block';
@@ -29,42 +37,81 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let currentRoom = 'general';
   let subscription = null;
-
-  // Cache of profile info for display
   const profileCache = {};
 
-  async function getProfile(userId) {
-    if (profileCache[userId]) return profileCache[userId];
+  let mediaRecorder = null;
+  let audioChunks = [];
+  let recordedBlob = null;
+  let recInterval = null;
+  let recStartTime = 0;
+
+  async function getProfile(uid) {
+    if (profileCache[uid]) return profileCache[uid];
     const { data } = await window.sb
       .from('profiles')
       .select('full_name, photo_url, role')
-      .eq('id', userId)
+      .eq('id', uid)
       .single();
-    const profile = data || { full_name: 'Student', photo_url: null, role: 'Student' };
-    profileCache[userId] = profile;
-    return profile;
+    const p = data || { full_name: 'Student', photo_url: null, role: 'Student' };
+    profileCache[uid] = p;
+    return p;
   }
 
   function formatTime(iso) {
-    const d = new Date(iso);
-    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
   function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+    const d = document.createElement('div');
+    d.textContent = str == null ? '' : String(str);
+    return d.innerHTML;
   }
 
-  asyncif (m.body) {
-  let bodyHtml;
-  if (window.Mentions && window.Mentions.renderMentions) {
-    bodyHtml = await window.Mentions.renderMentions(m.body);
-  } else {
-    bodyHtml = escapeHtml(m.body);
+  function formatDuration(sec) {
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
   }
-  content += `<div class="chat-text">${bodyHtml}</div>`;
-}{
+
+  async function buildMessageHtml(m, profile, mine) {
+    const initials = (profile.full_name || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+    const avatar = profile.photo_url
+      ? `<img src="${profile.photo_url}" alt="${profile.full_name}" />`
+      : initials;
+
+    let content = '';
+    if (m.body) {
+      let bodyHtml;
+      if (window.Mentions && window.Mentions.renderMentions) {
+        bodyHtml = await window.Mentions.renderMentions(m.body);
+      } else {
+        bodyHtml = escapeHtml(m.body);
+      }
+      content += `<div class="chat-text">${bodyHtml}</div>`;
+    }
+    if (m.voice_url) {
+      content += `
+        <div class="voice-note">
+          <audio controls preload="metadata" src="${m.voice_url}"></audio>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="chat-msg ${mine ? 'mine' : 'theirs'}">
+        <div class="chat-avatar">${avatar}</div>
+        <div class="chat-bubble">
+          <div class="chat-meta">
+            <strong>${escapeHtml(mine ? 'You' : profile.full_name)}</strong>
+            <span>${formatTime(m.created_at)}</span>
+          </div>
+          ${content}
+        </div>
+      </div>
+    `;
+  }
+
+  async function renderMessages(list) {
     if (!list.length) {
       messages.innerHTML = '';
       messages.appendChild(chatEmpty);
@@ -72,29 +119,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
     chatEmpty.style.display = 'none';
-
     const items = await Promise.all(list.map(async m => {
       const profile = await getProfile(m.sender_id);
-      const mine = m.sender_id === userId;
-      const initials = (profile.full_name || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
-      const avatar = profile.photo_url
-        ? `<img src="${profile.photo_url}" alt="${profile.full_name}" />`
-        : initials;
-
-      return `
-        <div class="chat-msg ${mine ? 'mine' : 'theirs'}">
-          <div class="chat-avatar">${avatar}</div>
-          <div class="chat-bubble">
-            <div class="chat-meta">
-              <strong>${escapeHtml(mine ? 'You' : profile.full_name)}</strong>
-              <span>${formatTime(m.created_at)}</span>
-            </div>
-            <div class="chat-text">${escapeHtml(m.body)}</div>
-          </div>
-        </div>
-      `;
+      return await buildMessageHtml(m, profile, m.sender_id === userId);
     }));
-
     messages.innerHTML = items.join('');
     messages.scrollTop = messages.scrollHeight;
   }
@@ -103,7 +131,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentRoom = room;
     messages.innerHTML = '<div class="chat-empty"><span>⏳</span><p>Loading messages…</p></div>';
 
-    // Update title
     const titles = {
       general: ['General Chat', 'Open to all Actuarial Science students'],
       L100: ['Level 100 Chat', 'For first-year students'],
@@ -113,14 +140,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
     roomTitle.textContent = titles[room]?.[0] || room;
     roomSub.textContent = titles[room]?.[1] || '';
-
-    // Tabs
     roomTabs.forEach(t => t.classList.toggle('active', t.dataset.room === room));
 
-    // Fetch messages
     const { data, error } = await window.sb
       .from('chat_messages')
-      .select('id, sender_id, body, created_at')
+      .select('id, sender_id, body, voice_url, created_at')
       .eq('room', room)
       .order('created_at', { ascending: true })
       .limit(200);
@@ -130,41 +154,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       messages.innerHTML = '<div class="chat-empty"><span>⚠️</span><p>Could not load messages.</p></div>';
       return;
     }
-
     await renderMessages(data || []);
 
-    // Realtime subscription
     if (subscription) {
       window.sb.removeChannel(subscription);
       subscription = null;
     }
-
     subscription = window.sb
       .channel('chat_' + room)
       .on('postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'chat_messages', filter: `room=eq.${room}` },
         async (payload) => {
           const newMsg = payload.new;
-          if (newMsg.sender_id === userId) return; // already shown optimistically
+          if (newMsg.sender_id === userId) return;
           const profile = await getProfile(newMsg.sender_id);
-          const initials = (profile.full_name || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
-          const avatar = profile.photo_url
-            ? `<img src="${profile.photo_url}" alt="${profile.full_name}" />`
-            : initials;
-
           chatEmpty.style.display = 'none';
-          const html = `
-            <div class="chat-msg theirs">
-              <div class="chat-avatar">${avatar}</div>
-              <div class="chat-bubble">
-                <div class="chat-meta">
-                  <strong>${escapeHtml(profile.full_name)}</strong>
-                  <span>${formatTime(newMsg.created_at)}</span>
-                </div>
-                <div class="chat-text">${escapeHtml(newMsg.body)}</div>
-              </div>
-            </div>
-          `;
+          const html = await buildMessageHtml(newMsg, profile, false);
           messages.insertAdjacentHTML('beforeend', html);
           messages.scrollTop = messages.scrollHeight;
         }
@@ -172,36 +177,23 @@ document.addEventListener('DOMContentLoaded', async () => {
       .subscribe();
   }
 
-  // Send message
+  // ---- Send text ----
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const text = input.value.trim();
     if (!text) return;
 
     sendBtn.disabled = true;
-    input.disabled = true;
-
-    // Optimistic UI
-    const initials = myName.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
     const myProfile = await getProfile(userId);
-    const avatar = myProfile.photo_url
-      ? `<img src="${myProfile.photo_url}" alt="${myName}" />`
-      : initials;
-
+    const optimistic = {
+      sender_id: userId,
+      body: text,
+      voice_url: null,
+      created_at: new Date().toISOString()
+    };
     chatEmpty.style.display = 'none';
-    const tempHtml = `
-      <div class="chat-msg mine pending">
-        <div class="chat-avatar">${avatar}</div>
-        <div class="chat-bubble">
-          <div class="chat-meta">
-            <strong>You</strong>
-            <span>${formatTime(new Date().toISOString())}</span>
-          </div>
-          <div class="chat-text">${escapeHtml(text)}</div>
-        </div>
-      </div>
-    `;
-    messages.insertAdjacentHTML('beforeend', tempHtml);
+    const html = await buildMessageHtml(optimistic, myProfile, true);
+    messages.insertAdjacentHTML('beforeend', html);
     messages.scrollTop = messages.scrollHeight;
     input.value = '';
 
@@ -209,31 +201,115 @@ document.addEventListener('DOMContentLoaded', async () => {
       .from('chat_messages')
       .insert({ room: currentRoom, sender_id: userId, body: text });
 
-    if (error) {
-      console.error(error);
-      alert('Could not send: ' + error.message);
-    } else {
-      // Remove pending class
-      const last = messages.lastElementChild;
-      if (last) last.classList.remove('pending');
-    }
-
+    if (error) alert('Could not send: ' + error.message);
     sendBtn.disabled = false;
-    input.disabled = false;
     input.focus();
   });
 
-  // Room tabs
+  // ---- Voice recording ----
+  micBtn.addEventListener('click', async () => {
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+      mediaRecorder.stop();
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.addEventListener('dataavailable', (e) => {
+        if (e.data.size > 0) audioChunks.push(e.data);
+      });
+
+      mediaRecorder.addEventListener('stop', () => {
+        stream.getTracks().forEach(t => t.stop());
+        recordedBlob = new Blob(audioChunks, { type: 'audio/webm' });
+        const url = URL.createObjectURL(recordedBlob);
+        voiceAudioPreview.src = url;
+        voicePreview.style.display = 'block';
+        recordingIndicator.style.display = 'none';
+        micBtn.classList.remove('recording');
+        micBtn.textContent = '🎙️';
+        clearInterval(recInterval);
+      });
+
+      mediaRecorder.start();
+      micBtn.classList.add('recording');
+      micBtn.textContent = '⏹';
+      recordingIndicator.style.display = 'flex';
+
+      recStartTime = Date.now();
+      recTimer.textContent = '0:00';
+      voiceTimer.textContent = '0:00';
+      recInterval = setInterval(() => {
+        const sec = Math.floor((Date.now() - recStartTime) / 1000);
+        recTimer.textContent = formatDuration(sec);
+        voiceTimer.textContent = formatDuration(sec);
+        if (sec >= 120) mediaRecorder.stop();
+      }, 500);
+
+    } catch (err) {
+      alert('Could not access microphone: ' + err.message);
+    }
+  });
+
+  voiceCancel.addEventListener('click', () => {
+    voicePreview.style.display = 'none';
+    recordedBlob = null;
+    voiceAudioPreview.src = '';
+  });
+
+  voiceSend.addEventListener('click', async () => {
+    if (!recordedBlob) return;
+    voiceSend.disabled = true;
+    voiceSend.textContent = 'Uploading…';
+    try {
+      const path = `${userId}/${Date.now()}.webm`;
+      const { error: uploadErr } = await window.sb.storage
+        .from('voice-notes')
+        .upload(path, recordedBlob, { contentType: 'audio/webm', cacheControl: '3600' });
+      if (uploadErr) throw uploadErr;
+
+      const { data: urlData } = window.sb.storage.from('voice-notes').getPublicUrl(path);
+      const voiceUrl = urlData.publicUrl;
+
+      const { error: insertErr } = await window.sb
+        .from('chat_messages')
+        .insert({ room: currentRoom, sender_id: userId, body: null, voice_url: voiceUrl });
+      if (insertErr) throw insertErr;
+
+      const myProfile = await getProfile(userId);
+      const optimistic = {
+        sender_id: userId,
+        body: null,
+        voice_url: voiceUrl,
+        created_at: new Date().toISOString()
+      };
+      chatEmpty.style.display = 'none';
+      const html = await buildMessageHtml(optimistic, myProfile, true);
+      messages.insertAdjacentHTML('beforeend', html);
+      messages.scrollTop = messages.scrollHeight;
+
+      voicePreview.style.display = 'none';
+      recordedBlob = null;
+      voiceAudioPreview.src = '';
+
+    } catch (err) {
+      console.error(err);
+      alert('Upload failed: ' + err.message);
+    } finally {
+      voiceSend.disabled = false;
+      voiceSend.textContent = 'Send ▶';
+    }
+  });
+
   roomTabs.forEach(tab => {
     tab.addEventListener('click', () => loadRoom(tab.dataset.room));
   });
 
-  // Load default room
-   // Attach @-mention autocomplete to the chat input
   if (window.Mentions && window.Mentions.attachAutocomplete) {
     window.Mentions.attachAutocomplete(input);
   }
 
   await loadRoom('general');
-});
 });
