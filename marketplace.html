@@ -6,7 +6,7 @@
   <title>Marketplace — ActuarialUCC</title>
   <meta name="description" content="Buy and sell actuarial textbooks, calculators, past questions and study materials within the UCC Actuarial Science community." />
   <link rel="stylesheet" href="css/style.css" />
-</head>F
+</head>
 <body>
 
   <header class="site-header">
@@ -16,26 +16,26 @@
         <span class="logo-text">Actuarial<span class="accent">UCC</span></span>
       </a>
       <button class="menu-toggle" aria-label="Open menu">☰</button>
-    <nav class="nav">
-  <ul>
-    <li><a href="about.html">The Program</a></li>
-    <li><a href="curriculum.html">Curriculum</a></li>
-    <li><a href="students.html">Students</a></li>
-    <li><a href="chat.html">Actuaries Chat</a></li>
-    <li><a href="past-questions.html">Past Questions</a></li>
-    <li><a href="marketplace.html">Marketplace</a></li>
-    <li><a href="login.html" class="btn-outline">Login</a></li>
-    <li><a href="register.html" class="btn-primary small">Register</a></li>
-  </ul>
-</nav>
+      <nav class="nav">
+        <ul>
+          <li><a href="about.html">The Program</a></li>
+          <li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="chat.html">Actuaries Chat</a></li>
+          <li><a href="past-questions.html">Past Questions</a></li>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="login.html" class="btn-outline">Login</a></li>
+          <li><a href="register.html" class="btn-primary small">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
   <section class="page-hero">
     <div class="container">
       <p class="page-breadcrumb"><a href="index.html">Home</a> / Marketplace</p>
       <h1>Actuarial Marketplace</h1>
-      <p class="page-sub">
-        Buy and sell textbooks, calculators, past questions and study materials —
-        within the UCC Actuarial Science community.
-      </p>
+      <p class="page-sub">Buy and sell textbooks, calculators, past questions and study materials — within the UCC Actuarial Science community.</p>
     </div>
   </section>
 
@@ -51,8 +51,7 @@
         <div class="step"><div class="step-num">3</div><h3>Meet &amp; Swap</h3><p>Meet on campus and complete the exchange.</p></div>
       </div>
       <div class="notice-banner">
-        🛒 <strong>Online payments coming soon.</strong>
-        For now, contact sellers directly. All trades happen in person, on campus.
+        🛒 <strong>Online payments coming soon.</strong> For now, contact sellers directly. All trades happen in person, on campus.
       </div>
     </div>
   </section>
@@ -62,6 +61,10 @@
       <div class="section-head center">
         <h2>Browse Items</h2>
         <p class="section-sub">Filter by category or search by name.</p>
+      </div>
+
+      <div style="text-align:center; margin-bottom:24px;">
+        <a href="sell.html" class="btn-primary">＋ Sell an Item</a>
       </div>
 
       <div class="dir-controls">
@@ -74,7 +77,6 @@
           <button class="level-tab" data-cat="Software">Software</button>
           <button class="level-tab" data-cat="Other">Other</button>
         </div>
-
         <div class="dir-search">
           <input type="text" id="productSearch" placeholder="Search by item name…" />
         </div>
@@ -87,30 +89,33 @@
       <div class="empty-state" id="productEmpty">
         <span class="empty-icon">🛒</span>
         <h3>No items listed yet</h3>
-        <p>Marketplace items will appear here once products are added.</p>
+        <p>Be the first to list something for sale!</p>
       </div>
     </div>
   </section>
 
   <section class="cta">
-  <div class="container cta-inner">
-    <h2>Have Something to Sell?</h2>
-    <p>Textbooks, calculators, past questions — list them here and reach fellow students.</p>
-    <a href="sell.html" class="btn-primary">Sell an Item</a>
-  </div>
-</section>
+    <div class="container cta-inner">
+      <h2>Have Something to Sell?</h2>
+      <p>Textbooks, calculators, past questions — list them here and reach fellow students.</p>
+      <a href="sell.html" class="btn-primary">Sell an Item</a>
+    </div>
+  </section>
 
   <footer class="site-footer">
     <div class="container footer-grid">
       <div><h4>ActuarialUCC</h4><p class="muted">A student-run hub for the Actuarial Science community at the University of Cape Coast.</p></div>
       <div><h4>Program</h4><ul><li><a href="about.html">About</a></li><li><a href="curriculum.html">Curriculum</a></li><li><a href="executives.html">Executives</a></li></ul></div>
-      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="chat.html">Actuaries Chat</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
       <div><h4>Account</h4><ul><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li></ul></div>
     </div>
     <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
   </footer>
 
-  <script src="js/main.js"></script><script src="js/auth.js"></script>
-  <script src="js/marketplace.js"></script><script src="js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/main.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/marketplace.js"></script>
 </body>
 </html>
