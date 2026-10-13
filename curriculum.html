@@ -4,12 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Curriculum — ActuarialUCC</title>
-  <meta name="description" content="The full Actuarial Science curriculum at the University of Cape Coast — Level 100 to Level 400, semester by semester." />
+  <meta name="description" content="The full Actuarial Science curriculum at the University of Cape Coast — courses from Level 100 to Level 400." />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="site-header">
     <div class="container nav-wrap">
       <a href="index.html" class="logo">
@@ -17,252 +16,146 @@
         <span class="logo-text">Actuarial<span class="accent">UCC</span></span>
       </a>
       <button class="menu-toggle" aria-label="Open menu">☰</button>
-<nav class="nav">
-  <ul>
-    <li><a href="about.html">The Program</a></li>
-    <li><a href="curriculum.html">Curriculum</a></li>
-    <li><a href="students.html">Students</a></li>
-    <li><a href="chat.html">Actuaries Chat</a></li>
-    <li><a href="past-questions.html">Past Questions</a></li>
-    <li><a href="marketplace.html">Marketplace</a></li>
-    <li><a href="login.html" class="btn-outline">Login</a></li>
-    <li><a href="register.html" class="btn-primary small">Register</a></li>
-  </ul>
-</nav>
-  <!-- PAGE HERO -->
+      <nav class="nav">
+        <ul>
+          <li><a href="about.html">The Program</a></li>
+          <li><a href="curriculum.html">Curriculum</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="chat.html">Actuaries Chat</a></li>
+          <li><a href="past-questions.html">Past Questions</a></li>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="login.html" class="btn-outline">Login</a></li>
+          <li><a href="register.html" class="btn-primary small">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
   <section class="page-hero">
     <div class="container">
       <p class="page-breadcrumb"><a href="index.html">Home</a> / Curriculum</p>
-      <h1>The Curriculum</h1>
-      <p class="page-sub">A four-year journey through mathematics, statistics, economics, and computing. Semester by semester — from Level 100 to Level 400.</p>
+      <h1>What You'll Study</h1>
+      <p class="page-sub">A four-year journey through mathematics, statistics, finance and computing — building the foundation every actuary needs.</p>
     </div>
   </section>
 
-  <!-- INTRO -->
   <section class="section">
     <div class="container">
       <div class="section-head center">
-        <h2>How the Program Is Structured</h2>
-        <p class="section-sub">UCC operates on a semester system. Each level builds on the previous one — from broad mathematical foundations to specialist actuarial topics.</p>
+        <h2>Program Overview</h2>
+        <p class="section-sub">Actuarial Science at UCC is a 4-year Bachelor's program combining core mathematics with applied actuarial, financial and statistical courses.</p>
       </div>
 
-      <div class="features">
-        <div class="feature"><span>📐</span><div><h4>Foundation First</h4><p>Level 100 builds your mathematical and statistical base — algebra, calculus, probability, and computing.</p></div></div>
-        <div class="feature"><span>📊</span><div><h4>Build &amp; Apply</h4><p>Level 200 extends into further calculus, abstract algebra, deeper probability, accounting, and quantitative methods.</p></div></div>
-        <div class="feature"><span>🎯</span><div><h4>Specialise</h4><p>Levels 300 and 400 dive into advanced actuarial modelling, life contingencies, and research.</p></div></div>
+      <div class="level-tabs" id="levelTabs">
+        <button class="level-tab active" data-level="100">Level 100</button>
+        <button class="level-tab" data-level="200">Level 200</button>
+        <button class="level-tab" data-level="300">Level 300</button>
+        <button class="level-tab" data-level="400">Level 400</button>
       </div>
+
+      <div class="level-panel active" data-level="100">
+        <div class="level-header">
+          <h3>Level 100 — Foundations</h3>
+          <p>Building the mathematical base every actuary needs.</p>
+        </div>
+        <div class="course-grid">
+          <div class="course-card"><span class="course-code">MAT 101</span><h4>Calculus I</h4><p>Limits, derivatives, integrals and their applications.</p></div>
+          <div class="course-card"><span class="course-code">MAT 102</span><h4>Calculus II</h4><p>Sequences, series, multivariable calculus.</p></div>
+          <div class="course-card"><span class="course-code">MAT 103</span><h4>Algebra &amp; Trigonometry</h4><p>Sets, functions, polynomials, basic trig identities.</p></div>
+          <div class="course-card"><span class="course-code">STA 101</span><h4>Introduction to Statistics</h4><p>Descriptive statistics, probability basics, distributions.</p></div>
+          <div class="course-card"><span class="course-code">CSC 101</span><h4>Introduction to Computing</h4><p>Computer fundamentals, algorithms, and problem solving.</p></div>
+          <div class="course-card"><span class="course-code">ECO 101</span><h4>Principles of Economics</h4><p>Micro and macro foundations — supply, demand, markets.</p></div>
+          <div class="course-card"><span class="course-code">UGRC</span><h4>University Required Courses</h4><p>Communication skills, African studies, and liberal electives.</p></div>
+        </div>
+      </div>
+
+      <div class="level-panel" data-level="200">
+        <div class="level-header">
+          <h3>Level 200 — Probability &amp; Statistics</h3>
+          <p>Deeper into probability theory, inference and mathematical rigor.</p>
+        </div>
+        <div class="course-grid">
+          <div class="course-card"><span class="course-code">MAT 201</span><h4>Linear Algebra</h4><p>Vectors, matrices, eigenvalues, linear transformations.</p></div>
+          <div class="course-card"><span class="course-code">MAT 202</span><h4>Real Analysis</h4><p>Sequences, continuity, limits and rigorous proof.</p></div>
+          <div class="course-card"><span class="course-code">STA 201</span><h4>Probability Theory</h4><p>Random variables, distributions, expectation, variance.</p></div>
+          <div class="course-card"><span class="course-code">STA 202</span><h4>Statistical Inference</h4><p>Estimation, hypothesis testing, confidence intervals.</p></div>
+          <div class="course-card"><span class="course-code">ACT 201</span><h4>Introduction to Actuarial Science</h4><p>Role of the actuary, insurance basics, risk concepts.</p></div>
+          <div class="course-card"><span class="course-code">CSC 201</span><h4>Programming (Python/R)</h4><p>Data analysis and actuarial computations with code.</p></div>
+          <div class="course-card"><span class="course-code">ECO 201</span><h4>Macroeconomics</h4><p>National income, inflation, monetary policy.</p></div>
+        </div>
+      </div>
+
+      <div class="level-panel" data-level="300">
+        <div class="level-header">
+          <h3>Level 300 — Actuarial Core</h3>
+          <p>The heart of the program: financial mathematics, life contingencies and risk.</p>
+        </div>
+        <div class="course-grid">
+          <div class="course-card"><span class="course-code">ACT 301</span><h4>Financial Mathematics</h4><p>Interest theory, annuities, bonds, NPV and cash flows.</p></div>
+          <div class="course-card"><span class="course-code">ACT 302</span><h4>Life Contingencies I</h4><p>Life tables, survival models, life insurance and annuities.</p></div>
+          <div class="course-card"><span class="course-code">ACT 303</span><h4>Risk Theory</h4><p>Risk models, ruin theory, credibility.</p></div>
+          <div class="course-card"><span class="course-code">STA 301</span><h4>Stochastic Processes</h4><p>Markov chains, Poisson processes, applications.</p></div>
+          <div class="course-card"><span class="course-code">STA 302</span><h4>Regression &amp; Modelling</h4><p>Linear models, GLMs, practical data modelling.</p></div>
+          <div class="course-card"><span class="course-code">ECO 301</span><h4>Financial Economics</h4><p>Asset pricing, portfolio theory, market efficiency.</p></div>
+        </div>
+      </div>
+
+      <div class="level-panel" data-level="400">
+        <div class="level-header">
+          <h3>Level 400 — Advanced &amp; Specialised</h3>
+          <p>Professional-level topics and a final-year research project.</p>
+        </div>
+        <div class="course-grid">
+          <div class="course-card"><span class="course-code">ACT 401</span><h4>Life Contingencies II</h4><p>Advanced life insurance models, reserves, profit testing.</p></div>
+          <div class="course-card"><span class="course-code">ACT 402</span><h4>Pension Mathematics</h4><p>Design, funding and valuation of pension schemes.</p></div>
+          <div class="course-card"><span class="course-code">ACT 403</span><h4>Actuarial Modelling</h4><p>Simulation, Monte Carlo, model building and validation.</p></div>
+          <div class="course-card"><span class="course-code">ACT 404</span><h4>General Insurance</h4><p>Pricing and reserving for non-life insurance.</p></div>
+          <div class="course-card"><span class="course-code">ACT 405</span><h4>Project / Dissertation</h4><p>Supervised research on a real actuarial problem.</p></div>
+          <div class="course-card"><span class="course-code">STA 401</span><h4>Advanced Statistical Methods</h4><p>Time series, Bayesian methods, statistical learning.</p></div>
+        </div>
+      </div>
+
+      <p class="curriculum-note">ⓘ Course codes and titles shown here reflect the general structure of a UCC Actuarial Science degree. Always confirm the current official course list with the Department of Mathematics.</p>
     </div>
   </section>
 
-  <!-- =========================================================
-       LEVEL 100 — FIRST SEMESTER
-       ========================================================= -->
   <section class="section section-alt">
-    <div class="container">
-      <div class="level-header">
-        <span class="level-badge">Level 100 · Semester 1</span>
-        <h2>Foundation Year — First Semester</h2>
-        <p>Your entry into the language of mathematics and computing. This semester builds the essential toolkit for everything that follows.</p>
-      </div>
-
-      <div class="course-grid">
-        <div class="course-card">
-          <span class="course-code">MAT 101</span>
-          <h4>Algebra and Trigonometry</h4>
-          <p>Sets, functions, equations, trigonometric identities, and the algebraic foundations for later calculus.</p>
-        </div>
-        <div class="course-card">
-          <span class="course-code">ECO 103</span>
-          <h4>Principles of Microeconomics</h4>
-          <p>Supply and demand, consumer behaviour, market structures, and the economic reasoning you'll apply to actuarial problems.</p>
-        </div>
-        <div class="course-card">
-          <span class="course-code">STA 101</span>
-          <h4>Introduction to Probability</h4>
-          <p>Basic probability, random variables, distributions, and an introduction to statistical thinking.</p>
-        </div>
-        <div class="course-card">
-          <span class="course-code">CSC 105</span>
-          <h4>Introduction to Computing</h4>
-          <p>Computer fundamentals, spreadsheets, problem-solving with computers, and an introduction to programming concepts.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       LEVEL 100 — SECOND SEMESTER (PLACEHOLDER)
-       ========================================================= -->
-  <section class="section">
-    <div class="container">
-      <div class="level-header">
-        <span class="level-badge">Level 100 · Semester 2</span>
-        <h2>Foundation Year — Second Semester</h2>
-        <p>Continuing the foundation. Courses for this semester will be added as the department publishes them.</p>
-      </div>
-
-      <div class="info-box">
-        <span class="info-icon">📌</span>
-        <div>
-          <h4>Courses Coming Soon</h4>
-          <p>The full second-semester course list for Level 100 is being compiled. If you have the official list from the department, please share it so we can complete this section.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       LEVEL 200
-       ========================================================= -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="level-header">
-        <span class="level-badge">Level 200</span>
-        <h2>Building the Core</h2>
-        <p>Year two deepens your mathematical maturity — further calculus, abstract algebra, advanced probability, accounting, and quantitative methods.</p>
-      </div>
-
-      <div class="course-grid">
-        <div class="course-card">
-          <span class="course-code">MAT 203</span>
-          <h4>Further Calculus</h4>
-          <p>Multivariable calculus, partial derivatives, multiple integrals, and series — the calculus toolkit for actuarial modelling.</p>
-        </div>
-        <div class="course-card">
-          <span class="course-code">MAT 201</span>
-          <h4>Abstract Algebra</h4>
-          <p>Groups, rings, and fields. A rigorous introduction to algebraic structures and proof techniques.</p>
-        </div>
-        <div class="course-card">
-          <span class="course-code">STA 203</span>
-          <h4>Further Probability</h4>
-          <p>Joint distributions, transformations, moment-generating functions, and deeper probability theory.</p>
-        </div>
-        <div class="course-card">
-          <span class="course-code">ECO 207</span>
-          <h4>Elements of Microeconomics</h4>
-          <p>Intermediate microeconomic theory — consumer choice, production, market equilibrium, and welfare.</p>
-        </div>
-        <div class="course-card">
-          <span class="course-code">ACC 101</span>
-          <h4>Foundations of Accounting</h4>
-          <p>Principles of financial accounting — the language of business and the foundation for actuarial finance.</p>
-        </div>
-        <div class="course-card">
-          <span class="course-code">SBU 201</span>
-          <h4>Quantitative Methods</h4>
-          <p>Mathematical and statistical techniques applied to business decision-making and operations.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       LEVEL 300 — COMING SOON
-       ========================================================= -->
-  <section class="section">
-    <div class="container">
-      <div class="level-header">
-        <span class="level-badge">Level 300</span>
-        <h2>Actuarial Core</h2>
-        <p>The third year moves into specialist actuarial territory — life contingencies, financial mathematics, and advanced statistical modelling.</p>
-      </div>
-
-      <div class="info-box">
-        <span class="info-icon">📌</span>
-        <div>
-          <h4>Courses Coming Soon</h4>
-          <p>The Level 300 course list is being compiled from the department handbook. Share the official list and we'll publish it here.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       LEVEL 400 — COMING SOON
-       ========================================================= -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="level-header">
-        <span class="level-badge">Level 400</span>
-        <h2>Advanced &amp; Specialisation</h2>
-        <p>The final year covers advanced actuarial science, research methods, and your final-year project.</p>
-      </div>
-
-      <div class="info-box">
-        <span class="info-icon">📌</span>
-        <div>
-          <h4>Courses Coming Soon</h4>
-          <p>The Level 400 course list is being compiled from the department handbook. Share the official list and we'll publish it here.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CAREER PATH -->
-  <section class="section">
     <div class="container">
       <div class="section-head center">
         <h2>Where This Takes You</h2>
-        <p class="section-sub">Actuarial Science graduates from UCC pursue careers in many directions.</p>
+        <p class="section-sub">Career paths open to Actuarial Science graduates.</p>
       </div>
-
       <div class="features">
-        <div class="feature"><span>🛡</span><div><h4>Insurance &amp; Pensions</h4><p>Actuary, underwriter, pension analyst, claims specialist.</p></div></div>
-        <div class="feature"><span>🏦</span><div><h4>Banking &amp; Finance</h4><p>Risk analyst, investment officer, credit modeller, quantitative analyst.</p></div></div>
-        <div class="feature"><span>📊</span><div><h4>Data &amp; Analytics</h4><p>Data scientist, statistician, business analyst, machine-learning engineer.</p></div></div>
-        <div class="feature"><span>📚</span><div><h4>Academia</h4><p>Lecturer, researcher, or postgraduate study in actuarial science or statistics.</p></div></div>
-        <div class="feature"><span>🌍</span><div><h4>International Exams</h4><p>Pursue IFoA (UK) or SOA (US) professional qualifications alongside work.</p></div></div>
-        <div class="feature"><span>🚀</span><div><h4>Entrepreneurship</h4><p>Fintech, insurtech, and consulting — many actuary-led startups exist.</p></div></div>
+        <div class="feature"><span>🛡</span><div><h4>Insurance Actuary</h4><p>Pricing, reserving and risk management at life or general insurers.</p></div></div>
+        <div class="feature"><span>🏦</span><div><h4>Investment Analyst</h4><p>Banks, asset managers and pension funds.</p></div></div>
+        <div class="feature"><span>📊</span><div><h4>Data Scientist</h4><p>Analytics, machine learning, and financial modelling.</p></div></div>
+        <div class="feature"><span>🌍</span><div><h4>International Exams</h4><p>Qualify with IFoA (UK) or SOA (USA) to work globally.</p></div></div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="cta">
     <div class="container cta-inner">
-      <h2>Ready to Meet the Students?</h2>
-      <p>See everyone studying Actuarial Science at UCC, from Level 100 to Level 400.</p>
+      <h2>Meet Your Fellow Students</h2>
+      <p>See who's studying Actuarial Science at UCC — Level 100 through Level 400.</p>
       <a href="students.html" class="btn-primary">View Student Directory</a>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div>
-        <h4>ActuarialUCC</h4>
-        <p class="muted">A student-run hub for the Actuarial Science community at the University of Cape Coast.</p>
-      </div>
-      <div>
-        <h4>Program</h4>
-        <ul>
-          <li><a href="about.html">About</a></li>
-          <li><a href="curriculum.html">Curriculum</a></li>
-          <li><a href="executives.html">Executives</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Community</h4>
-        <ul>
-          <li><a href="students.html">Students</a></li>
-          <li><a href="learning.html">Learning Hub</a></li>
-          <li><a href="marketplace.html">Marketplace</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Account</h4>
-        <ul>
-          <li><a href="login.html">Login</a></li>
-          <li><a href="register.html">Register</a></li>
-        </ul>
-      </div>
+      <div><h4>ActuarialUCC</h4><p class="muted">A student-run hub for the Actuarial Science community at the University of Cape Coast.</p></div>
+      <div><h4>Program</h4><ul><li><a href="about.html">About</a></li><li><a href="curriculum.html">Curriculum</a></li><li><a href="executives.html">Executives</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="students.html">Students</a></li><li><a href="learning.html">Learning Hub</a></li><li><a href="past-questions.html">Past Questions</a></li><li><a href="chat.html">Actuaries Chat</a></li><li><a href="marketplace.html">Marketplace</a></li></ul></div>
+      <div><h4>Account</h4><ul><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li></ul></div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p>
-    </div>
+    <div class="footer-bottom"><p>© 2026 Actuarial Science, University of Cape Coast · Built by students.</p></div>
   </footer>
 
-  <script src="js/main.js"></script><script src="js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/main.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/curriculum.js"></script>
 </body>
 </html>
