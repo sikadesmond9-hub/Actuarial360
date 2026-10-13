@@ -221,5 +221,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Load default room
+   // Attach @-mention autocomplete to the chat input
+  if (window.Mentions && window.Mentions.attachAutocomplete) {
+    window.Mentions.attachAutocomplete(input);
+  }
+
   await loadRoom('general');
+});
 });
