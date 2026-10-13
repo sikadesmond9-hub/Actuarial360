@@ -1,6 +1,5 @@
 /* =========================================================
    ACTUARIAL UCC — EMERALD & SLATE THEME
-   Modern · Clean · Mobile-first
    ========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
@@ -40,6 +39,22 @@ body {
   font-weight: 400;
 }
 
+/* ===== CHAT PAGE LOCK =====
+   When body has class "chat-page-lock" (added in chat.html),
+   the whole page doesn't scroll — only the messages area does. */
+body.chat-page-lock {
+  overflow: hidden;
+  height: 100vh;
+}
+body.chat-page-lock .section {
+  padding: 24px 0;
+  height: calc(100vh - 72px);
+  overflow: hidden;
+}
+body.chat-page-lock .site-footer {
+  display: none;
+}
+
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
@@ -70,14 +85,12 @@ h1, h2, h3, h4 {
   -webkit-backdrop-filter: saturate(180%) blur(12px);
   border-bottom: 1px solid var(--border);
 }
-
 .nav-wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 14px 22px;
 }
-
 .logo {
   display: flex;
   align-items: center;
@@ -86,7 +99,6 @@ h1, h2, h3, h4 {
   font-size: 1.15rem;
   color: var(--dark);
 }
-
 .logo-mark {
   background: linear-gradient(135deg, var(--primary), var(--accent-warm));
   color: #fff;
@@ -98,10 +110,8 @@ h1, h2, h3, h4 {
   letter-spacing: 0.5px;
   box-shadow: var(--shadow-green);
 }
-
 .logo-text { letter-spacing: -0.02em; }
 .logo-text .accent { color: var(--primary); }
-
 .nav ul {
   display: flex;
   align-items: center;
@@ -111,7 +121,6 @@ h1, h2, h3, h4 {
 }
 .nav a { color: var(--text); transition: color 0.15s; }
 .nav a:hover { color: var(--primary); }
-
 .menu-toggle {
   display: none;
   font-size: 1.5rem;
@@ -146,10 +155,8 @@ h1, h2, h3, h4 {
   transform: translateY(-2px);
   box-shadow: 0 10px 28px rgba(16, 185, 129, 0.55);
 }
-
 .btn-primary.small { padding: 9px 18px; font-size: 0.88rem; }
 .btn-primary.full { width: 100%; text-align: center; display: block; }
-
 .btn-outline {
   border: 1.5px solid var(--primary);
   color: var(--primary) !important;
@@ -163,7 +170,6 @@ h1, h2, h3, h4 {
   background: var(--primary);
   color: #fff !important;
 }
-
 .btn-ghost {
   border: 1.5px solid rgba(110, 231, 183, 0.6);
   color: #ffffff !important;
@@ -192,7 +198,6 @@ h1, h2, h3, h4 {
   color: #fff;
   padding: 100px 0 80px;
 }
-
 .hero::before {
   content: "";
   position: absolute;
@@ -202,7 +207,6 @@ h1, h2, h3, h4 {
     radial-gradient(circle at 85% 80%, rgba(20, 184, 166, 0.18), transparent 45%);
   pointer-events: none;
 }
-
 .hero-inner {
   text-align: center;
   max-width: 900px;
@@ -210,7 +214,6 @@ h1, h2, h3, h4 {
   position: relative;
   z-index: 1;
 }
-
 .hero-badge {
   display: inline-block;
   font-size: 0.74rem;
@@ -225,7 +228,6 @@ h1, h2, h3, h4 {
   font-weight: 600;
   backdrop-filter: blur(6px);
 }
-
 .hero h1 {
   color: #fff;
   font-size: clamp(2rem, 5vw, 3.3rem);
@@ -241,7 +243,6 @@ h1, h2, h3, h4 {
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 2px 12px rgba(52, 211, 153, 0.35));
 }
-
 .hero-sub {
   font-size: 1.08rem;
   opacity: 0.88;
@@ -250,7 +251,6 @@ h1, h2, h3, h4 {
   margin-left: auto;
   margin-right: auto;
 }
-
 .hero-actions {
   display: flex;
   gap: 14px;
@@ -258,7 +258,6 @@ h1, h2, h3, h4 {
   flex-wrap: wrap;
   margin-bottom: 50px;
 }
-
 .hero-stats {
   display: flex;
   justify-content: center;
@@ -285,7 +284,6 @@ h1, h2, h3, h4 {
    ========================================================= */
 .section { padding: 85px 0; }
 .section-alt { background: var(--bg-alt); }
-
 .section-head { margin-bottom: 42px; }
 .section-head.center { text-align: center; }
 .section-head h2 {
@@ -297,7 +295,6 @@ h1, h2, h3, h4 {
   margin-top: 8px;
   font-size: 1rem;
 }
-
 .link-more {
   color: var(--primary);
   font-weight: 600;
@@ -306,14 +303,13 @@ h1, h2, h3, h4 {
 .link-more:hover { color: var(--primary-dark); }
 
 /* =========================================================
-   QUICK GRID (Homepage cards)
+   QUICK GRID
    ========================================================= */
 .quick-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 20px;
 }
-
 .quick-card {
   background: #fff;
   border: 1px solid var(--border);
@@ -323,7 +319,6 @@ h1, h2, h3, h4 {
   position: relative;
   overflow: hidden;
 }
-
 .quick-card::before {
   content: "";
   position: absolute;
@@ -333,30 +328,22 @@ h1, h2, h3, h4 {
   opacity: 0;
   transition: opacity 0.25s;
 }
-
 .quick-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
   border-color: transparent;
 }
 .quick-card:hover::before { opacity: 1; }
-
 .quick-icon {
   font-size: 2.2rem;
   display: block;
   margin-bottom: 14px;
 }
-.quick-card h3 {
-  font-size: 1.08rem;
-  margin-bottom: 6px;
-}
-.quick-card p {
-  color: var(--muted);
-  font-size: 0.9rem;
-}
+.quick-card h3 { font-size: 1.08rem; margin-bottom: 6px; }
+.quick-card p { color: var(--muted); font-size: 0.9rem; }
 
 /* =========================================================
-   SPLIT SECTION
+   SPLIT
    ========================================================= */
 .split {
   display: grid;
@@ -404,18 +391,9 @@ h1, h2, h3, h4 {
   transform: translateY(-3px);
   box-shadow: var(--shadow);
 }
-.feature > span {
-  font-size: 1.8rem;
-  flex-shrink: 0;
-}
-.feature h4 {
-  font-size: 1rem;
-  margin-bottom: 4px;
-}
-.feature p {
-  font-size: 0.88rem;
-  color: var(--muted);
-}
+.feature > span { font-size: 1.8rem; flex-shrink: 0; }
+.feature h4 { font-size: 1rem; margin-bottom: 4px; }
+.feature p { font-size: 0.88rem; color: var(--muted); }
 
 /* =========================================================
    CTA
@@ -483,12 +461,7 @@ h1, h2, h3, h4 {
   transition: color 0.15s;
 }
 .site-footer a:hover { color: var(--accent); }
-.muted {
-  font-size: 0.9rem;
-  opacity: 0.75;
-  line-height: 1.7;
-}
-
+.muted { font-size: 0.9rem; opacity: 0.75; line-height: 1.7; }
 .footer-bottom {
   border-top: 1px solid #1e293b;
   padding: 20px;
@@ -498,7 +471,7 @@ h1, h2, h3, h4 {
 }
 
 /* =========================================================
-   PAGE HERO (inner pages)
+   PAGE HERO
    ========================================================= */
 .page-hero {
   position: relative;
@@ -515,7 +488,6 @@ h1, h2, h3, h4 {
   background: radial-gradient(circle at 30% 40%, rgba(16, 185, 129, 0.22), transparent 55%);
 }
 .page-hero .container { position: relative; z-index: 1; }
-
 .page-breadcrumb {
   font-size: 0.85rem;
   opacity: 0.8;
@@ -523,7 +495,6 @@ h1, h2, h3, h4 {
 }
 .page-breadcrumb a { color: #6ee7b7; }
 .page-breadcrumb a:hover { text-decoration: underline; }
-
 .page-hero h1 {
   color: #fff;
   font-size: clamp(1.7rem, 4vw, 2.5rem);
@@ -539,10 +510,7 @@ h1, h2, h3, h4 {
 /* =========================================================
    CHECK LIST
    ========================================================= */
-.check-list {
-  margin: 14px 0 18px;
-  padding-left: 0;
-}
+.check-list { margin: 14px 0 18px; padding-left: 0; }
 .check-list li {
   position: relative;
   padding-left: 30px;
@@ -574,11 +542,7 @@ h1, h2, h3, h4 {
   width: 2px;
   background: linear-gradient(to bottom, var(--primary), var(--accent-warm), transparent);
 }
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 34px;
-}
+.timeline-item { position: relative; margin-bottom: 34px; }
 .timeline-dot {
   position: absolute;
   left: -28px;
@@ -589,7 +553,6 @@ h1, h2, h3, h4 {
   border: 3px solid #fff;
   box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.25);
 }
-
 .timeline-content {
   background: #fff;
   border: 1px solid var(--border);
@@ -602,7 +565,6 @@ h1, h2, h3, h4 {
   transform: translateX(4px);
   box-shadow: var(--shadow);
 }
-
 .timeline-year {
   display: inline-block;
   font-size: 0.72rem;
@@ -615,15 +577,8 @@ h1, h2, h3, h4 {
   border-radius: 999px;
   margin-bottom: 12px;
 }
-
-.timeline-content h3 {
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-}
-.timeline-content p {
-  font-size: 0.94rem;
-  color: #4b5563;
-}
+.timeline-content h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.timeline-content p { font-size: 0.94rem; color: #4b5563; }
 
 /* =========================================================
    MISSION & VISION
@@ -647,22 +602,12 @@ h1, h2, h3, h4 {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
 }
-.mv-icon {
-  font-size: 2.5rem;
-  display: block;
-  margin-bottom: 14px;
-}
-.mv-card h3 {
-  margin-bottom: 10px;
-  font-size: 1.15rem;
-}
-.mv-card p {
-  color: var(--muted);
-  font-size: 0.94rem;
-}
+.mv-icon { font-size: 2.5rem; display: block; margin-bottom: 14px; }
+.mv-card h3 { margin-bottom: 10px; font-size: 1.15rem; }
+.mv-card p { color: var(--muted); font-size: 0.94rem; }
 
 /* =========================================================
-   LEVEL TABS (curriculum + filters)
+   LEVEL TABS
    ========================================================= */
 .level-tabs {
   display: flex;
@@ -693,28 +638,15 @@ h1, h2, h3, h4 {
   border-color: transparent;
   box-shadow: 0 6px 18px rgba(5, 150, 105, 0.3);
 }
-
 .level-panel { display: none; }
 .level-panel.active { display: block; animation: fadeIn 0.3s ease; }
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
-.level-header {
-  text-align: center;
-  margin-bottom: 32px;
-}
-.level-header h3 {
-  font-size: 1.5rem;
-  margin-bottom: 6px;
-  color: var(--dark);
-}
-.level-header p {
-  color: var(--muted);
-  font-size: 0.95rem;
-}
+.level-header { text-align: center; margin-bottom: 32px; }
+.level-header h3 { font-size: 1.5rem; margin-bottom: 6px; color: var(--dark); }
+.level-header p { color: var(--muted); font-size: 0.95rem; }
 
 .course-grid {
   display: grid;
@@ -754,15 +686,8 @@ h1, h2, h3, h4 {
   border-radius: 6px;
   margin-bottom: 10px;
 }
-.course-card h4 {
-  font-size: 1.02rem;
-  margin-bottom: 6px;
-  color: var(--dark);
-}
-.course-card p {
-  font-size: 0.88rem;
-  color: var(--muted);
-}
+.course-card h4 { font-size: 1.02rem; margin-bottom: 6px; color: var(--dark); }
+.course-card p { font-size: 0.88rem; color: var(--muted); }
 .curriculum-note {
   margin-top: 40px;
   padding: 16px 20px;
@@ -802,7 +727,7 @@ h1, h2, h3, h4 {
 .step p { color: var(--muted); font-size: 0.92rem; }
 
 /* =========================================================
-   DIRECTORY CONTROLS (search + filters)
+   DIRECTORY CONTROLS
    ========================================================= */
 .dir-controls {
   display: flex;
@@ -812,10 +737,7 @@ h1, h2, h3, h4 {
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
-.dir-search {
-  flex: 1 1 280px;
-  max-width: 380px;
-}
+.dir-search { flex: 1 1 280px; max-width: 380px; }
 .dir-search input {
   width: 100%;
   padding: 12px 18px;
@@ -832,11 +754,7 @@ h1, h2, h3, h4 {
   border-color: var(--primary);
   box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.12);
 }
-.dir-count {
-  color: var(--muted);
-  font-size: 0.9rem;
-  margin-bottom: 24px;
-}
+.dir-count { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
 
 /* =========================================================
    STUDENT CARDS
@@ -1053,14 +971,4 @@ h1, h2, h3, h4 {
   flex-shrink: 0;
   width: 60px;
   height: 60px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--primary), var(--accent-warm));
-  color: #fff;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: 1.15rem;
-  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.28);
-}
-.mentor-body { flex: 1; min-width: 0; }
-.mentor-body h3 { font-size: 1.05rem;
+  border
